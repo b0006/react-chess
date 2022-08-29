@@ -35,3 +35,11 @@
     }
   }
 }
+
+.icon {
+  position: absolute;
+  z-index: 10;
+  height: 85%;
+  width: 85%;
+  transition: transform 0.25s;
+}

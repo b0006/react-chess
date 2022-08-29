@@ -1,17 +1,18 @@
-import { ChessInstance, PieceColor, PieceType, ShortMove, Square } from 'chess.js';
+import { ChessInstance, PieceColor, PieceType, Move, Square } from 'chess.js';
 
 export type BoardState = Array<
   Array<{ type: PieceType; color: PieceColor; square: Square } | null>
 >;
 
 export interface UseChessboard {
-  chessRef: React.MutableRefObject<ChessInstance>;
-  lastMove: ShortMove | null;
-  setLastMove: React.Dispatch<React.SetStateAction<ShortMove | null>>;
+  chessEngine: ChessInstance;
+  lastMove: Move | null;
+  setLastMove: React.Dispatch<React.SetStateAction<Move | null>>;
   initBoardState: BoardState;
 }
 
 export interface ChessboardProps {
-  lastMove: ShortMove | null;
+  lastMove: Move | null;
   initBoardState: BoardState | null;
+  chessEngine: ChessInstance;
 }
