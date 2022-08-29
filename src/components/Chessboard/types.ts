@@ -1,18 +1,21 @@
-import { ChessInstance, PieceColor, PieceType, Move, Square } from 'chess.js';
+import { PieceColor, PieceType, Move, Square } from 'chess.js';
 
 export type BoardState = Array<
   Array<{ type: PieceType; color: PieceColor; square: Square } | null>
 >;
 
+export interface UseChessboardProps {
+  withAnimationPiece: boolean;
+}
+
 export interface UseChessboardReturn {
-  chessEngine: ChessInstance;
+  boardElRef: React.RefObject<HTMLDivElement>;
   nextMove: Move | null;
-  onMove: (move: Move) => void;
   boardState: BoardState | null;
+  onMove: (move: Move) => void;
+  getPossibleMoves: () => Move[];
 }
 
 export interface ChessboardProps {
-  // nextMove: Move | null;
   boardState: BoardState | null;
-  // chessEngine: ChessInstance;
 }
