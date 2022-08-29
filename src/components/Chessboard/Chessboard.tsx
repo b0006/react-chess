@@ -3,6 +3,7 @@ import { ChessboardProps } from './types';
 import styles from './Chessboard.module.scss';
 import { HorizontalSymbols } from './HorizontalSymbols';
 import { VerticalSymbols } from './VerticalSymbols';
+import { CellTable } from './CellTable';
 
 export const Chessboard: FC<ChessboardProps> = ({ lastMove }) => {
   useEffect(() => {
@@ -18,88 +19,7 @@ export const Chessboard: FC<ChessboardProps> = ({ lastMove }) => {
           <HorizontalSymbols />
           <div className={styles.game}>
             <VerticalSymbols />
-            <div className={styles.board}>
-              <div className={styles.row}>
-                <div className={`${styles.cell} ${styles.cell__light}`} />
-                <div className={`${styles.cell} ${styles.cell__dark}`} />
-                <div className={`${styles.cell} ${styles.cell__light}`} />
-                <div className={`${styles.cell} ${styles.cell__dark}`} />
-                <div className={`${styles.cell} ${styles.cell__light}`} />
-                <div className={`${styles.cell} ${styles.cell__dark}`} />
-                <div className={`${styles.cell} ${styles.cell__light}`} />
-                <div className={`${styles.cell} ${styles.cell__dark}`} />
-              </div>
-              <div className={styles.row}>
-                <div className={`${styles.cell} ${styles.cell__dark}`} />
-                <div className={`${styles.cell} ${styles.cell__light}`} />
-                <div className={`${styles.cell} ${styles.cell__dark}`} />
-                <div className={`${styles.cell} ${styles.cell__light}`} />
-                <div className={`${styles.cell} ${styles.cell__dark}`} />
-                <div className={`${styles.cell} ${styles.cell__light}`} />
-                <div className={`${styles.cell} ${styles.cell__dark}`} />
-                <div className={`${styles.cell} ${styles.cell__light}`} />
-              </div>
-              <div className={styles.row}>
-                <div className={`${styles.cell} ${styles.cell__light}`} />
-                <div className={`${styles.cell} ${styles.cell__dark}`} />
-                <div className={`${styles.cell} ${styles.cell__light}`} />
-                <div className={`${styles.cell} ${styles.cell__dark}`} />
-                <div className={`${styles.cell} ${styles.cell__light}`} />
-                <div className={`${styles.cell} ${styles.cell__dark}`} />
-                <div className={`${styles.cell} ${styles.cell__light}`} />
-                <div className={`${styles.cell} ${styles.cell__dark}`} />
-              </div>
-              <div className={styles.row}>
-                <div className={`${styles.cell} ${styles.cell__dark}`} />
-                <div className={`${styles.cell} ${styles.cell__light}`} />
-                <div className={`${styles.cell} ${styles.cell__dark}`} />
-                <div className={`${styles.cell} ${styles.cell__light}`} />
-                <div className={`${styles.cell} ${styles.cell__dark}`} />
-                <div className={`${styles.cell} ${styles.cell__light}`} />
-                <div className={`${styles.cell} ${styles.cell__dark}`} />
-                <div className={`${styles.cell} ${styles.cell__light}`} />
-              </div>
-              <div className={styles.row}>
-                <div className={`${styles.cell} ${styles.cell__light}`} />
-                <div className={`${styles.cell} ${styles.cell__dark}`} />
-                <div className={`${styles.cell} ${styles.cell__light}`} />
-                <div className={`${styles.cell} ${styles.cell__dark}`} />
-                <div className={`${styles.cell} ${styles.cell__light}`} />
-                <div className={`${styles.cell} ${styles.cell__dark}`} />
-                <div className={`${styles.cell} ${styles.cell__light}`} />
-                <div className={`${styles.cell} ${styles.cell__dark}`} />
-              </div>
-              <div className={styles.row}>
-                <div className={`${styles.cell} ${styles.cell__dark}`} />
-                <div className={`${styles.cell} ${styles.cell__light}`} />
-                <div className={`${styles.cell} ${styles.cell__dark}`} />
-                <div className={`${styles.cell} ${styles.cell__light}`} />
-                <div className={`${styles.cell} ${styles.cell__dark}`} />
-                <div className={`${styles.cell} ${styles.cell__light}`} />
-                <div className={`${styles.cell} ${styles.cell__dark}`} />
-                <div className={`${styles.cell} ${styles.cell__light}`} />
-              </div>
-              <div className={styles.row}>
-                <div className={`${styles.cell} ${styles.cell__light}`} />
-                <div className={`${styles.cell} ${styles.cell__dark}`} />
-                <div className={`${styles.cell} ${styles.cell__light}`} />
-                <div className={`${styles.cell} ${styles.cell__dark}`} />
-                <div className={`${styles.cell} ${styles.cell__light}`} />
-                <div className={`${styles.cell} ${styles.cell__dark}`} />
-                <div className={`${styles.cell} ${styles.cell__light}`} />
-                <div className={`${styles.cell} ${styles.cell__dark}`} />
-              </div>
-              <div className={styles.row}>
-                <div className={`${styles.cell} ${styles.cell__dark}`} />
-                <div className={`${styles.cell} ${styles.cell__light}`} />
-                <div className={`${styles.cell} ${styles.cell__dark}`} />
-                <div className={`${styles.cell} ${styles.cell__light}`} />
-                <div className={`${styles.cell} ${styles.cell__dark}`} />
-                <div className={`${styles.cell} ${styles.cell__light}`} />
-                <div className={`${styles.cell} ${styles.cell__dark}`} />
-                <div className={`${styles.cell} ${styles.cell__light}`} />
-              </div>
-            </div>
+            <CellTable />
             <VerticalSymbols />
           </div>
           <HorizontalSymbols />
