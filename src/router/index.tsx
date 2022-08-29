@@ -1,11 +1,12 @@
-import React from 'react';
+import { FC } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { StartPage } from '../pages/Start';
 
-const Router: React.FC = () => {
+const Router: FC = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<div>HOME</div>} />
+        <Route path='/' element={<StartPage />} />
       </Routes>
     </BrowserRouter>
   );
