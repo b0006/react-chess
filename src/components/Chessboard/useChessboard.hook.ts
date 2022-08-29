@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { Chess, Move } from 'chess.js';
 import { BoardState, UseChessboardProps, UseChessboardReturn } from './types';
 
@@ -12,27 +12,25 @@ const getCenterOfCell = (el: Element) => {
 const setAnimationPiece = (fromCellEl: Element, toCellEl: Element, callback?: () => void) => {
   let timeoutId: NodeJS.Timeout | null = null;
 
-  if (fromCellEl && toCellEl) {
-    const { x: fromX, y: fromY } = getCenterOfCell(fromCellEl);
-    const { x: toX, y: toY } = getCenterOfCell(toCellEl);
+  const { x: fromX, y: fromY } = getCenterOfCell(fromCellEl);
+  const { x: toX, y: toY } = getCenterOfCell(toCellEl);
 
-    const x = toX - fromX;
-    const y = toY - fromY;
+  const x = toX - fromX;
+  const y = toY - fromY;
 
-    const pieceEl = fromCellEl?.firstChild as HTMLElement;
-    if (!pieceEl) {
-      return timeoutId;
-    }
-
-    pieceEl.style.transform = `translate3d(${x}px, ${y}px, 0)`;
-    // pieceEl.style.zIndex = '11';
-
-    timeoutId = setTimeout(() => {
-      if (typeof callback === 'function') {
-        callback();
-      }
-    }, 250);
+  const pieceEl = fromCellEl.firstChild as HTMLElement;
+  if (!pieceEl) {
+    return timeoutId;
   }
+
+  pieceEl.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+  // pieceEl.style.zIndex = '11';
+
+  timeoutId = setTimeout(() => {
+    if (typeof callback === 'function') {
+      callback();
+    }
+  }, 250);
 
   return timeoutId;
 };
@@ -43,15 +41,16 @@ const setAnimationMove = (moved: Move, boardEl: HTMLDivElement | null, callback:
 
   if (!fromCellEl || !toCellEl) {
     console.error('Ошибка хода с анимацией:', { fromCellEl, toCellEl });
-    return;
+    return null;
   }
 
-  setAnimationPiece(fromCellEl, toCellEl, callback);
+  return setAnimationPiece(fromCellEl, toCellEl, callback);
 };
 
 export const useChessboard = ({ withAnimationPiece }: UseChessboardProps): UseChessboardReturn => {
   const boardElRef = useRef<HTMLDivElement>(null);
   const chessRef = useRef(new Chess());
+  const moveTimeoutIdRef = useRef<NodeJS.Timeout | null>(null);
 
   const [boardState, setBoardState] = useState<BoardState | null>(chessRef.current.board());
   const [nextMove, setNextMove] = useState<Move | null>(null);
@@ -72,11 +71,19 @@ export const useChessboard = ({ withAnimationPiece }: UseChessboardProps): UseCh
       return;
     }
 
-    setAnimationMove(moved, boardElRef.current, () => {
+    moveTimeoutIdRef.current = setAnimationMove(moved, boardElRef.current, () => {
       setNextMove(moved);
       setBoardState(chessRef.current.board());
     });
   };
+
+  useEffect(() => {
+    return () => {
+      if (moveTimeoutIdRef.current) {
+        clearTimeout(moveTimeoutIdRef.current);
+      }
+    };
+  }, []);
 
   return {
     boardElRef,
