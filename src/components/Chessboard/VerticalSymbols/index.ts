@@ -1,0 +1,1 @@
+export { VerticalSymbols } from './VerticalSymbols';

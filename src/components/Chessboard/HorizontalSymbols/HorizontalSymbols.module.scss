@@ -1,0 +1,13 @@
+.horizontalPanel {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(10vmin * 0.4);
+}
+
+.alphabetSymbol {
+  width: 10vmin;
+  display: flex;
+  justify-content: center;
+}

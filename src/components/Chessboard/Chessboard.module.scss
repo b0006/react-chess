@@ -10,7 +10,7 @@
   font-size: 2vmin;
   background-color: #8093b6;
 
-  &--rotate {
+  &__rotate {
     transform: rotate(180deg);
   }
 }
@@ -41,7 +41,7 @@
   transition: background-color 0.25s, box-shadow 0.25s, border-radius 0.25s;
   outline: none;
 
-  &--light {
+  &__light {
     background-color: #ced3dd;
 
     &:hover {
@@ -49,36 +49,11 @@
     }
   }
 
-  &--dark {
+  &__dark {
     background-color: #8093b6;
 
     &:hover {
       background-color: #70809e;
     }
   }
-}
-
-.horizontal-panel {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: calc(10vmin * 0.4);
-}
-
-.alphabet-symbol {
-  width: 10vmin;
-  display: flex;
-  justify-content: center;
-}
-
-.vertical-panel {
-  width: calc(10vmin * 0.4);
-}
-
-.digit-symbol {
-  height: 10vmin;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
