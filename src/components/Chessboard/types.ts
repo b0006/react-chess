@@ -10,9 +10,9 @@ export interface UseChessboardProps {
 
 export interface UseChessboardReturn {
   boardElRef: React.RefObject<HTMLDivElement>;
-  nextMove: Move | null;
   boardState: BoardState | null;
   onMove: (move: Move) => void;
+  onUndoMove: () => void;
   getPossibleMoves: () => Move[];
 }
 

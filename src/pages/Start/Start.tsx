@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Chessboard, useChessboard } from '../../components/Chessboard';
 
 const StartPage: FC = () => {
-  const { boardElRef, boardState, getPossibleMoves, onMove } = useChessboard({
+  const { boardElRef, boardState, getPossibleMoves, onMove, onUndoMove } = useChessboard({
     withAnimationPiece: true,
   });
 
@@ -16,6 +16,7 @@ const StartPage: FC = () => {
     <div>
       <Chessboard boardState={boardState} ref={boardElRef} />
       <button onClick={onClick}>Random move</button>
+      <button onClick={onUndoMove}>Undo move</button>
     </div>
   );
 };
