@@ -4,15 +4,15 @@ export type BoardState = Array<
   Array<{ type: PieceType; color: PieceColor; square: Square } | null>
 >;
 
-export interface UseChessboard {
+export interface UseChessboardReturn {
   chessEngine: ChessInstance;
   nextMove: Move | null;
-  setNextMove: React.Dispatch<React.SetStateAction<Move | null>>;
-  initBoardState: BoardState;
+  onMove: (move: Move) => void;
+  boardState: BoardState | null;
 }
 
 export interface ChessboardProps {
-  nextMove: Move | null;
-  initBoardState: BoardState | null;
-  chessEngine: ChessInstance;
+  // nextMove: Move | null;
+  boardState: BoardState | null;
+  // chessEngine: ChessInstance;
 }
