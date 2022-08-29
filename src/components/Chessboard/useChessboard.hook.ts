@@ -4,12 +4,12 @@ import { UseChessboard } from './types';
 
 export const useChessboard = (): UseChessboard => {
   const chessRef = useRef(new Chess());
-  const [lastMove, setLastMove] = useState<Move | null>(null);
+  const [nextMove, setNextMove] = useState<Move | null>(null);
 
   return {
     chessEngine: chessRef.current,
     initBoardState: chessRef.current.board(),
-    lastMove,
-    setLastMove,
+    nextMove,
+    setNextMove,
   };
 };

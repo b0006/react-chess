@@ -5,21 +5,21 @@ import { HorizontalSymbols } from './HorizontalSymbols';
 import { VerticalSymbols } from './VerticalSymbols';
 import { CellTable } from './CellTable';
 
-export const Chessboard: FC<ChessboardProps> = ({ chessEngine, initBoardState, lastMove }) => {
+export const Chessboard: FC<ChessboardProps> = ({ chessEngine, initBoardState, nextMove }) => {
   const [boardState, setBoardState] = useState(initBoardState);
 
   useEffect(() => {
-    if (lastMove) {
-      const moved = chessEngine.move({ from: lastMove.from, to: lastMove.to });
+    if (nextMove) {
+      const moved = chessEngine.move({ from: nextMove.from, to: nextMove.to });
 
       if (moved) {
         setBoardState(chessEngine.board());
         return;
       }
 
-      console.error('Ошибка хода:', { lastMove, moved });
+      console.error('Ошибка хода:', { nextMove, moved });
     }
-  }, [lastMove]);
+  }, [nextMove]);
 
   return (
     <div className={styles.chessboard}>

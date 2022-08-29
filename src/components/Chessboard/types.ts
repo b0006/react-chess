@@ -6,13 +6,13 @@ export type BoardState = Array<
 
 export interface UseChessboard {
   chessEngine: ChessInstance;
-  lastMove: Move | null;
-  setLastMove: React.Dispatch<React.SetStateAction<Move | null>>;
+  nextMove: Move | null;
+  setNextMove: React.Dispatch<React.SetStateAction<Move | null>>;
   initBoardState: BoardState;
 }
 
 export interface ChessboardProps {
-  lastMove: Move | null;
+  nextMove: Move | null;
   initBoardState: BoardState | null;
   chessEngine: ChessInstance;
 }
