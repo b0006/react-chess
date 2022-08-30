@@ -69,6 +69,7 @@ export const useChessboard = ({ withAnimationPiece }: UseChessboardProps): UseCh
   }, []);
 
   return {
+    chessEngine: chessRef.current,
     boardElRef,
     boardState,
     getPossibleMoves,

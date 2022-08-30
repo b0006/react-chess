@@ -6,14 +6,18 @@ import { VerticalSymbols } from './VerticalSymbols';
 import { CellTable } from './CellTable';
 
 export const Chessboard = forwardRef<HTMLDivElement, ChessboardProps>(
-  ({ boardState, onClickCell }, ref) => {
+  ({ boardState, chessEngine, onClickCell }, ref) => {
     return (
       <div ref={ref} className={styles.chessboard}>
         <div className={styles.inner}>
           <HorizontalSymbols />
           <div className={styles.game}>
             <VerticalSymbols />
-            <CellTable boardState={boardState} onClickCell={onClickCell} />
+            <CellTable
+              boardState={boardState}
+              chessEngine={chessEngine}
+              onClickCell={onClickCell}
+            />
             <VerticalSymbols />
           </div>
           <HorizontalSymbols />

@@ -1,5 +1,3 @@
-import { BoardState, ChessboardProps } from '../types';
+import { ChessboardProps } from '../types';
 
-export interface CellTableProps extends Pick<ChessboardProps, 'onClickCell'> {
-  boardState: BoardState | null;
-}
+export type CellTableProps = Pick<ChessboardProps, 'onClickCell' | 'boardState' | 'chessEngine'>;
