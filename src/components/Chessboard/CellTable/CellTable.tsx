@@ -46,6 +46,8 @@ export const CellTable: FC<CellTableProps> = ({ chessEngine, boardState, onClick
             const cellItem: BoardCell | undefined = boardState?.[digitIndex]?.[symIndex];
             const Icon = cellItem ? ICONS_DEFAULT?.[cellItem.color]?.[cellItem.type] : null;
 
+            const isLightCell = (symIndex + digitIndex) % 2 === 0;
+
             return (
               <div
                 key={squareId}
@@ -55,8 +57,8 @@ export const CellTable: FC<CellTableProps> = ({ chessEngine, boardState, onClick
                 onClick={onClickCellInner(squareId, cellItem)}
                 data-square={squareId}
                 className={cn(styles.cell, {
-                  [styles.cell__light]: (symIndex + digitIndex) % 2 === 0,
-                  [styles.cell__dark]: (symIndex + digitIndex) % 2 !== 0,
+                  [styles.cell__light]: isLightCell,
+                  [styles.cell__dark]: !isLightCell,
                   [styles.cell__move]: posibleMoves[squareId],
                 })}
               >
