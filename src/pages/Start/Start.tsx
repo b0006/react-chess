@@ -8,8 +8,7 @@ const StartPage: FC = () => {
       withAnimationPiece: true,
     });
 
-  const onClickCell = (squareId: string, move: Move | null) => {
-    console.log(squareId, move);
+  const onClickCell = (_: string, move: Move | null) => {
     if (move) {
       onMove(move);
     }

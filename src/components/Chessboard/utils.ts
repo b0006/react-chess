@@ -1,4 +1,4 @@
-import { Move } from 'chess.js';
+import { Move, PieceColor, Square } from 'chess.js';
 
 const getCenterOfCell = (el: Element) => {
   const state = el.getBoundingClientRect();
@@ -36,7 +36,7 @@ const setAnimationPiece = (fromCellEl: Element, toCellEl: Element, callback?: ()
 export const setAnimationMove = (
   moved: Move,
   boardEl: HTMLDivElement | null,
-  callback: () => void,
+  callback?: () => void,
 ) => {
   const fromCellEl = boardEl?.querySelector(`[data-square="${moved.from}"]`);
   const toCellEl = boardEl?.querySelector(`[data-square="${moved.to}"]`);
@@ -47,4 +47,29 @@ export const setAnimationMove = (
   }
 
   return setAnimationPiece(fromCellEl, toCellEl, callback);
+};
+
+export const getPositionForCastlingPiece = (
+  moveColor: PieceColor,
+  isCastlingKingSide: boolean,
+  isCastlingQueenSide: boolean,
+): { from: Square; to: Square } => {
+  if (moveColor === 'w') {
+    return {
+      from: isCastlingKingSide ? 'h1' : 'a1',
+      to: isCastlingQueenSide ? 'd1' : 'f1',
+    };
+  }
+
+  return {
+    from: isCastlingKingSide ? 'h8' : 'a8',
+    to: isCastlingQueenSide ? 'd8' : 'f8',
+  };
+};
+
+export const isCastlingMove = (move: Move) => {
+  return {
+    isCastlingQueenSide: move.san === 'O-O-O',
+    isCastlingKingSide: move.san === 'O-O',
+  };
 };
