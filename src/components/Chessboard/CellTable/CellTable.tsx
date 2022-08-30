@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useState, useEffect } from 'react';
 import { Move } from 'chess.js';
 import cn from 'classnames';
 import styles from './CellTable.module.scss';
@@ -9,6 +9,13 @@ import { BoardCell } from '../types';
 
 export const CellTable: FC<CellTableProps> = ({ chessEngine, boardState, onClickCell }) => {
   const [posibleMoves, setPosibleMoves] = useState<Record<string, Move>>({});
+
+  // clear posible moves after board state updated
+  useEffect(() => {
+    if (boardState) {
+      setPosibleMoves({});
+    }
+  }, [boardState]);
 
   const onClickCellInner = (squareId: string, cellItem?: BoardCell) => () => {
     const moveList = chessEngine.moves({ square: squareId, verbose: true }) || [];

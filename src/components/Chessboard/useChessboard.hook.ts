@@ -11,8 +11,6 @@ export const useChessboard = ({ withAnimationPiece }: UseChessboardProps): UseCh
 
   const [boardState, setBoardState] = useState<BoardState | null>(chessRef.current.board());
 
-  const getPossibleMoves = (): Move[] => chessRef.current.moves({ verbose: true });
-
   const updateBoardState = () => setBoardState(chessRef.current.board());
 
   const onMove = (move: Move) => {
@@ -126,7 +124,6 @@ export const useChessboard = ({ withAnimationPiece }: UseChessboardProps): UseCh
     chessEngine: chessRef.current,
     boardElRef,
     boardState,
-    getPossibleMoves,
     onUndoMove,
     onMove,
   };

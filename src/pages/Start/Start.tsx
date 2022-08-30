@@ -3,10 +3,9 @@ import { Move } from 'chess.js';
 import { Chessboard, useChessboard } from '../../components/Chessboard';
 
 const StartPage: FC = () => {
-  const { chessEngine, boardElRef, boardState, getPossibleMoves, onMove, onUndoMove } =
-    useChessboard({
-      withAnimationPiece: true,
-    });
+  const { chessEngine, boardElRef, boardState, onMove, onUndoMove } = useChessboard({
+    withAnimationPiece: true,
+  });
 
   const onClickCell = (_: string, move: Move | null) => {
     if (move) {
@@ -15,7 +14,7 @@ const StartPage: FC = () => {
   };
 
   const onClick = () => {
-    const moves = getPossibleMoves();
+    const moves = chessEngine.moves({ verbose: true });
     const move = moves[Math.floor(Math.random() * moves.length)];
     onMove(move);
   };

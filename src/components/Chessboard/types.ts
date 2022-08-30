@@ -13,7 +13,6 @@ export interface UseChessboardReturn {
   boardState: BoardState | null;
   onMove: (move: Move) => void;
   onUndoMove: () => void;
-  getPossibleMoves: () => Move[];
 }
 
 export interface ChessboardProps {
