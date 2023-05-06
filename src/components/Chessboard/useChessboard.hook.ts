@@ -11,7 +11,11 @@ export const useChessboard = ({ withAnimationPiece }: UseChessboardProps): UseCh
 
   const [boardState, setBoardState] = useState<BoardState | null>(chessRef.current.board());
 
-  const updateBoardState = () => setBoardState(chessRef.current.board());
+  const updateBoardState = () => {
+    // the first move exec react-error while moving without animation
+    // setBoardState(chessRef.current.board();
+    setTimeout(() => setBoardState(chessRef.current.board()), 1);
+  };
 
   const onMove = (move: Move) => {
     const { isCastlingKingSide, isCastlingQueenSide } = isCastlingMove(move);
@@ -19,7 +23,7 @@ export const useChessboard = ({ withAnimationPiece }: UseChessboardProps): UseCh
     const moved = chessRef.current.move({ from: move.from, to: move.to });
 
     if (!moved) {
-      console.error('Ошибка хода:', { nextMove: move });
+      console.error('Move error:', { nextMove: move });
       return;
     }
 
@@ -60,7 +64,7 @@ export const useChessboard = ({ withAnimationPiece }: UseChessboardProps): UseCh
     const lastMove = historyMoveList[historyMoveList.length - 1];
 
     if (!lastMove) {
-      console.error('Ошибка обратного хода');
+      console.error('Error undo move');
       return;
     }
 
