@@ -1,3 +1,3 @@
 import { ChessboardProps } from '../types';
 
-export type CellTableProps = Pick<ChessboardProps, 'onClickCell' | 'boardState' | 'chessEngine'>;
+export type CellTableProps = Pick<ChessboardProps, 'onMove' | 'boardState' | 'chessEngine'>;

@@ -1,14 +1,28 @@
 import { useRef, useState, useEffect } from 'react';
 import { Chess, Move } from 'chess.js';
-import { BoardState, UseChessboardProps, UseChessboardReturn } from '../types';
+import {
+  BoardState,
+  PromotionPiece,
+  PromotionState,
+  UseChessboardProps,
+  UseChessboardReturn,
+} from '../types';
 import { getPositionForCastlingPiece, isCastlingMove, setAnimationMove } from '../utils';
 
-export const useChessboard = ({ withAnimationPiece }: UseChessboardProps): UseChessboardReturn => {
+export const useChessboard = ({
+  withAnimationPiece = true,
+  withAutopromotion = true,
+  autopromotionPiece = 'q',
+}: UseChessboardProps): UseChessboardReturn => {
   const boardElRef = useRef<HTMLDivElement>(null);
   const chessRef = useRef(new Chess());
   const moveTimeoutIdOneRef = useRef<NodeJS.Timeout | null>(null);
   const moveTimeoutIdTwoRef = useRef<NodeJS.Timeout | null>(null);
 
+  const [promotionState, setPromotionState] = useState<PromotionState>({
+    isShownModal: false,
+    move: null,
+  });
   const [boardState, setBoardState] = useState<BoardState | null>(chessRef.current.board());
 
   const updateBoardState = () => {
@@ -17,10 +31,25 @@ export const useChessboard = ({ withAnimationPiece }: UseChessboardProps): UseCh
     setTimeout(() => setBoardState(chessRef.current.board()), 1);
   };
 
-  const onMove = (move: Move) => {
+  const onMove = (move: Move | null, extendPromotion?: PromotionPiece) => {
+    if (!move) {
+      return;
+    }
+
+    if (move.promotion && !withAutopromotion && !extendPromotion) {
+      // the first move exec react-error while moving without animation
+      // setIsShownPromotion(true);
+      setTimeout(() => setPromotionState({ isShownModal: true, move }), 1);
+      return;
+    }
+
     const { isCastlingKingSide, isCastlingQueenSide } = isCastlingMove(move);
 
-    const moved = chessRef.current.move({ from: move.from, to: move.to });
+    const moved = chessRef.current.move({
+      from: move.from,
+      to: move.to,
+      promotion: extendPromotion || autopromotionPiece,
+    });
 
     if (!moved) {
       console.error('Move error:', { nextMove: move });
@@ -128,6 +157,8 @@ export const useChessboard = ({ withAnimationPiece }: UseChessboardProps): UseCh
     chessEngine: chessRef.current,
     boardElRef,
     boardState,
+    promotionState,
+    setPromotionState,
     onUndoMove,
     onMove,
   };

@@ -1,17 +1,20 @@
 import { FC } from 'react';
-import { Move } from 'chess.js';
 import { Chessboard, useChessboard } from '../../components/Chessboard';
 
 const StartPage: FC = () => {
-  const { chessEngine, boardElRef, boardState, onMove, onUndoMove } = useChessboard({
+  const {
+    chessEngine,
+    boardElRef,
+    boardState,
+    promotionState,
+    setPromotionState,
+    onMove,
+    onUndoMove,
+  } = useChessboard({
     withAnimationPiece: true,
+    withAutopromotion: false,
+    autopromotionPiece: 'b',
   });
-
-  const onClickCell = (_: string, move: Move | null) => {
-    if (move) {
-      onMove(move);
-    }
-  };
 
   const onClick = () => {
     const moves = chessEngine.moves({ verbose: true });
@@ -25,7 +28,9 @@ const StartPage: FC = () => {
         chessEngine={chessEngine}
         boardState={boardState}
         ref={boardElRef}
-        onClickCell={onClickCell}
+        promotionState={promotionState}
+        setPromotionState={setPromotionState}
+        onMove={onMove}
       />
       <button onClick={onClick}>Random move</button>
       <button onClick={onUndoMove}>Undo move</button>

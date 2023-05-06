@@ -8,7 +8,7 @@ import { CellTableProps } from './types';
 import { BoardCell } from '../types';
 import { useClickOutside } from '../hooks';
 
-export const CellTable: FC<CellTableProps> = ({ chessEngine, boardState, onClickCell }) => {
+export const CellTable: FC<CellTableProps> = ({ chessEngine, boardState, onMove }) => {
   const boardElRef = useRef<HTMLDivElement>(null);
 
   const [posibleMoves, setPosibleMoves] = useState<Record<string, Move>>({});
@@ -24,7 +24,7 @@ export const CellTable: FC<CellTableProps> = ({ chessEngine, boardState, onClick
     }
   }, [boardState]);
 
-  const onClickCellInner = (squareId: string, cellItem?: BoardCell) => () => {
+  const onClickCellInner = (cellItem: BoardCell | null, squareId: string) => () => {
     const moveList = chessEngine.moves({ square: squareId, verbose: true }) || [];
     const movesData = moveList.reduce(
       (result, move) => ({
@@ -38,7 +38,7 @@ export const CellTable: FC<CellTableProps> = ({ chessEngine, boardState, onClick
       let nextMove: Move | null = null;
 
       if (!cellItem && !prevMoveData[squareId]) {
-        onClickCell?.(squareId, nextMove);
+        onMove?.(nextMove);
         return {};
       }
 
@@ -46,17 +46,18 @@ export const CellTable: FC<CellTableProps> = ({ chessEngine, boardState, onClick
         nextMove = prevMoveData[squareId];
       }
 
-      onClickCell?.(squareId, nextMove);
+      onMove?.(nextMove);
       return movesData;
     });
   };
 
   const onKeyDownCellInner =
-    (squareId: string, cellItem?: BoardCell) => (event: React.KeyboardEvent<HTMLDivElement>) => {
+    (cellItem: BoardCell | null, squareId: string) =>
+    (event: React.KeyboardEvent<HTMLDivElement>) => {
       switch (event.key) {
         // TODO: move by arrows
         case 'Enter':
-          onClickCellInner(squareId, cellItem)();
+          onClickCellInner(cellItem, squareId)();
           break;
         default:
           return;
@@ -69,7 +70,7 @@ export const CellTable: FC<CellTableProps> = ({ chessEngine, boardState, onClick
         <div key={digit} className={styles.row}>
           {SYMBOL_LIST.map((sym, symIndex) => {
             const squareId = `${sym}${digit}`;
-            const cellItem: BoardCell | undefined = boardState?.[digitIndex]?.[symIndex];
+            const cellItem: BoardCell | null = boardState?.[digitIndex]?.[symIndex] || null;
             const Icon = cellItem ? ICONS_DEFAULT?.[cellItem.color]?.[cellItem.type] : null;
 
             const isLightCell = (symIndex + digitIndex) % 2 === 0;
@@ -79,8 +80,8 @@ export const CellTable: FC<CellTableProps> = ({ chessEngine, boardState, onClick
                 key={squareId}
                 tabIndex={0}
                 role='button'
-                onKeyDown={onKeyDownCellInner(squareId, cellItem)}
-                onClick={onClickCellInner(squareId, cellItem)}
+                onKeyDown={onKeyDownCellInner(cellItem, squareId)}
+                onClick={onClickCellInner(cellItem, squareId)}
                 data-square={squareId}
                 className={cn(styles.cell, {
                   [styles.cell__light]: isLightCell,
