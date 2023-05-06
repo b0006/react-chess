@@ -19,20 +19,17 @@ export const ModalLayout: React.FC<ModalLayoutProps> = ({
   const [needClose, setNeedClose] = useState(false);
   const innerRef = useRef<HTMLDivElement>(null);
 
-  const onNeedClose = (): void => {
+  const onNeedClose = () => {
     setNeedClose(true);
   };
 
-  const onCloseEnd = (): void => {
-    if (needClose) {
-      console.log('onClose');
-      onClose();
-    }
+  const onCloseEnd = () => {
+    needClose && onClose();
   };
 
   const onOverlayClick = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent> | React.KeyboardEvent<HTMLDivElement>,
-  ): void => {
+  ) => {
     const innerEl = innerRef.current;
 
     if (innerEl && event.target instanceof Element && innerEl.contains(event.target)) {
@@ -40,7 +37,6 @@ export const ModalLayout: React.FC<ModalLayoutProps> = ({
     }
 
     if (overlayClickClose) {
-      console.log('overlay');
       onNeedClose();
     }
   };
