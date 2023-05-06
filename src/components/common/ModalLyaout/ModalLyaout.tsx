@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import cn from 'classnames';
 import { SvgIcon } from '../SvgIcon';
 import { ClientOnlyPortal } from './ClientOnlyPortal';
@@ -17,7 +17,14 @@ export const ModalLayout: React.FC<ModalLayoutProps> = ({
   onClose,
 }) => {
   const [needClose, setNeedClose] = useState(false);
-  const innerRef = useRef<HTMLDivElement>(null);
+  const innerRef = useRef<HTMLDivElement | null>(null);
+
+  const elRef = useCallback((node: HTMLDivElement) => {
+    if (node !== null) {
+      innerRef.current = node;
+      innerRef.current.focus();
+    }
+  }, []);
 
   const onNeedClose = () => {
     setNeedClose(true);
@@ -54,7 +61,8 @@ export const ModalLayout: React.FC<ModalLayoutProps> = ({
         onTransitionEnd={onCloseEnd}
       >
         <div
-          ref={innerRef}
+          ref={elRef}
+          tabIndex={0}
           className={cn(styles.inner, classNameInner, {
             [styles.inner_hide]: needClose,
           })}
