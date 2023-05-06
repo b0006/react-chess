@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { Button } from '../../common/Button';
 import { ModalLayout } from '../../common/ModalLyaout';
 import { PromotionModalProps } from './types';
 
@@ -12,8 +13,9 @@ export const PromotionModal: FC<PromotionModalProps> = ({
       showCloseButton={false}
       onClose={() => setPromotionState({ isShownModal: false, move: null })}
     >
-      <button
+      <Button
         type='button'
+        text='knight'
         onClick={() => {
           if (!promotionState.move) {
             return;
@@ -22,11 +24,10 @@ export const PromotionModal: FC<PromotionModalProps> = ({
           onMove(promotionState.move, 'n');
           setPromotionState({ isShownModal: false, move: null });
         }}
-      >
-        knight
-      </button>
-      <button
+      />
+      <Button
         type='button'
+        text='bishop'
         onClick={() => {
           if (!promotionState.move) {
             return;
@@ -35,9 +36,7 @@ export const PromotionModal: FC<PromotionModalProps> = ({
           onMove(promotionState.move, 'b');
           setPromotionState({ isShownModal: false, move: null });
         }}
-      >
-        bishop
-      </button>
+      />
     </ModalLayout>
   );
 };

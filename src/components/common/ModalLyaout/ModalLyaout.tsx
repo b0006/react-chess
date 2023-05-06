@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import cn from 'classnames';
-
+import { SvgIcon } from '../SvgIcon';
 import { ClientOnlyPortal } from './ClientOnlyPortal';
 import styles from './ModalLayout.module.scss';
 import { ModalLayoutProps } from './types';
@@ -62,7 +62,7 @@ export const ModalLayout: React.FC<ModalLayoutProps> = ({
           <div className={cn(styles.content, classNameContent)}>
             {showCloseButton && (
               <button className={styles['button-close']} type='button' onClick={onNeedClose}>
-                X
+                <SvgIcon kind='cross' className={styles.icon} />
               </button>
             )}
             {children}
