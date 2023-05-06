@@ -1,15 +1,15 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import cn from 'classnames';
 
 import { ClientOnlyPortal } from './ClientOnlyPortal';
 import styles from './ModalLayout.module.scss';
 import { ModalLayoutProps } from './types';
 
+// TODO: bugfix - any times close animation not working
 export const ModalLayout: React.FC<ModalLayoutProps> = ({
   portalTargetSelector,
   overlayClickClose,
   children,
-  isVisible,
   showCloseButton = true,
   classNameOverlay,
   classNameContent,
@@ -19,31 +19,14 @@ export const ModalLayout: React.FC<ModalLayoutProps> = ({
   const [needClose, setNeedClose] = useState(false);
   const innerRef = useRef<HTMLDivElement>(null);
 
-  const [innerIsVisible, setInnerIsVisible] = useState(false);
-
-  useEffect(() => {
-    if (isVisible) {
-      setInnerIsVisible(true);
-    }
-
-    if (innerIsVisible && !isVisible) {
-      setNeedClose(true);
-    }
-  }, [innerIsVisible, isVisible]);
-
-  if (!innerIsVisible) {
-    return null;
-  }
-
   const onNeedClose = (): void => {
     setNeedClose(true);
   };
 
   const onCloseEnd = (): void => {
     if (needClose) {
+      console.log('onClose');
       onClose();
-      setNeedClose(false);
-      setInnerIsVisible(false);
     }
   };
 
@@ -57,6 +40,7 @@ export const ModalLayout: React.FC<ModalLayoutProps> = ({
     }
 
     if (overlayClickClose) {
+      console.log('overlay');
       onNeedClose();
     }
   };
@@ -70,8 +54,8 @@ export const ModalLayout: React.FC<ModalLayoutProps> = ({
         tabIndex={0}
         role='button'
         onClick={onOverlayClick}
-        onKeyPress={onOverlayClick}
-        onAnimationEnd={onCloseEnd}
+        onKeyDown={onOverlayClick}
+        onTransitionEnd={onCloseEnd}
       >
         <div
           ref={innerRef}
@@ -82,7 +66,7 @@ export const ModalLayout: React.FC<ModalLayoutProps> = ({
           <div className={cn(styles.content, classNameContent)}>
             {showCloseButton && (
               <button className={styles['button-close']} type='button' onClick={onNeedClose}>
-                {/* <SvgIcon kind="cross" className={styles.icon} /> */}X
+                X
               </button>
             )}
             {children}

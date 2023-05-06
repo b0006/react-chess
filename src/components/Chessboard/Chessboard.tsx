@@ -21,11 +21,13 @@ export const Chessboard = forwardRef<HTMLDivElement, ChessboardProps>(
             <HorizontalSymbols />
           </div>
         </div>
-        <PromotionModal
-          promotionState={promotionState}
-          setPromotionState={setPromotionState}
-          onMove={onMove}
-        />
+        {promotionState.isShownModal && (
+          <PromotionModal
+            promotionState={promotionState}
+            setPromotionState={setPromotionState}
+            onMove={onMove}
+          />
+        )}
       </>
     );
   },

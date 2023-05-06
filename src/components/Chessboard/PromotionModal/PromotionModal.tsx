@@ -9,7 +9,7 @@ export const PromotionModal: FC<PromotionModalProps> = ({
 }) => {
   return (
     <ModalLayout
-      isVisible={promotionState.isShownModal}
+      // showCloseButton={false}
       onClose={() => setPromotionState({ isShownModal: false, move: null })}
     >
       <button

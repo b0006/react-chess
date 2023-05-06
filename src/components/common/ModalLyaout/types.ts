@@ -6,7 +6,6 @@ export interface ClientOnlyPortalProps {
 }
 
 export interface ModalLayoutProps {
-  isVisible: boolean;
   portalTargetSelector?: string;
   overlayClickClose?: boolean;
   showCloseButton?: boolean;

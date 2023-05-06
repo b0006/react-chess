@@ -16,24 +16,6 @@
   }
 }
 
-@keyframes overlay-hide {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-@keyframes inner-hide {
-  0% {
-    transform: scale(1, 1);
-  }
-  100% {
-    transform: scale(0.2, 0.2);
-  }
-}
-
 .overlay {
   animation-name: overlay-show;
   animation-duration: 0.25s;
@@ -46,9 +28,11 @@
   left: 0;
   overflow-y: auto;
   z-index: 1000;
+  opacity: 1;
+  transition: opacity 0.25s;
 
   &_hide {
-    animation-name: overlay-hide;
+    opacity: 0;
   }
 }
 
@@ -61,9 +45,11 @@
   margin: 8px auto;
   padding-bottom: 24px;
   top: 0;
+  transform: scale(1, 1);
+  transition: transform 0.25s;
 
   &_hide {
-    animation-name: inner-hide;
+    transform: scale(0.2, 0.2);
   }
 
   // @media #{$screen-sm} {
@@ -109,4 +95,8 @@
 .icon {
   width: 12px;
   height: 12px;
+}
+
+.hide {
+  display: none;
 }
