@@ -1,3 +1,5 @@
+@import 'src/assets/scss/utils';
+
 @keyframes overlay-show {
   0% {
     opacity: 0;
@@ -52,19 +54,17 @@
     transform: scale(0.2, 0.2);
   }
 
-  // @media #{$screen-sm} {
-  //   top: 100px;
-  //   width: 520px;
-  //   margin: 0 auto;
-  // }
+  @media #{$screen-sm} {
+    top: 100px;
+    width: 520px;
+    margin: 0 auto;
+  }
 }
 
 .content {
   position: relative;
-  background-color: white;
-  box-shadow: 4px 4px 4px black;
-  // background-color: $c-white;
-  // box-shadow: $shadow-default;
+  background-color: $c-white;
+  box-shadow: $shadow-default;
   border-radius: 8px;
   min-height: 300px;
   padding: 30px 25px;
@@ -75,10 +75,8 @@
   right: 2px;
   top: 2px;
   border: none;
-  // background-color: $c-primary;
-  // color: $c-white;
-  background-color: aquamarine;
-  color: white;
+  background-color: $c-primary;
+  color: $c-white;
   padding: 8px;
   margin: 0;
   display: flex;
@@ -87,8 +85,7 @@
   transition: background-color 0.25s;
 
   &:hover {
-    background-color: red;
-    // background-color: $c-primary-hover;
+    background-color: $c-primary-hover;
   }
 }
 
