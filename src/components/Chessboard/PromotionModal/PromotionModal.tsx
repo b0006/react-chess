@@ -25,6 +25,7 @@ export const PromotionModal: FC<PromotionModalProps> = ({
       showCloseButton={false}
       onClose={() => setPromotionState({ isShownModal: false, move: null })}
     >
+      <h2 className={styles.title}>Choose a chess piece</h2>
       <div className={styles['piece-wrapper']}>
         {PROMOTION_PIECE.map((pieceType) => {
           const PieceIcon = ICONS_DEFAULT[color][pieceType];
