@@ -29,6 +29,10 @@
   transition: background-color 0.25s, box-shadow 0.25s, border-radius 0.25s;
   outline: none;
 
+  &:focus-visible {
+    background-color: #a7acb8;
+  }
+
   &__light {
     background-color: #ced3dd;
 

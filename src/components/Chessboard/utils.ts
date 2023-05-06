@@ -42,7 +42,7 @@ export const setAnimationMove = (
   const toCellEl = boardEl?.querySelector(`[data-square="${moved.to}"]`);
 
   if (!fromCellEl || !toCellEl) {
-    console.error('Ошибка хода с анимацией:', { fromCellEl, toCellEl });
+    console.error('Error animation move:', { fromCellEl, toCellEl });
     return null;
   }
 

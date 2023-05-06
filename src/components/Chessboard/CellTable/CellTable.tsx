@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from 'react';
+import { FC, useState, useEffect, useRef } from 'react';
 import { Move } from 'chess.js';
 import cn from 'classnames';
 import styles from './CellTable.module.scss';
@@ -6,14 +6,21 @@ import { DIGIT_LIST, SYMBOL_LIST } from '../constants';
 import { ICONS_DEFAULT } from '../icons';
 import { CellTableProps } from './types';
 import { BoardCell } from '../types';
+import { useClickOutside } from '../hooks';
 
 export const CellTable: FC<CellTableProps> = ({ chessEngine, boardState, onClickCell }) => {
+  const boardElRef = useRef<HTMLDivElement>(null);
+
   const [posibleMoves, setPosibleMoves] = useState<Record<string, Move>>({});
+
+  const resetPosibleMoves = () => setPosibleMoves({});
+
+  useClickOutside(boardElRef, resetPosibleMoves);
 
   // clear posible moves after board state updated
   useEffect(() => {
     if (boardState) {
-      setPosibleMoves({});
+      resetPosibleMoves();
     }
   }, [boardState]);
 
@@ -44,8 +51,20 @@ export const CellTable: FC<CellTableProps> = ({ chessEngine, boardState, onClick
     });
   };
 
+  const onKeyDownCellInner =
+    (squareId: string, cellItem?: BoardCell) => (event: React.KeyboardEvent<HTMLDivElement>) => {
+      switch (event.key) {
+        // TODO: move by arrows
+        case 'Enter':
+          onClickCellInner(squareId, cellItem)();
+          break;
+        default:
+          return;
+      }
+    };
+
   return (
-    <div className={styles.board}>
+    <div className={styles.board} ref={boardElRef}>
       {DIGIT_LIST.map((digit, digitIndex) => (
         <div key={digit} className={styles.row}>
           {SYMBOL_LIST.map((sym, symIndex) => {
@@ -60,7 +79,7 @@ export const CellTable: FC<CellTableProps> = ({ chessEngine, boardState, onClick
                 key={squareId}
                 tabIndex={0}
                 role='button'
-                onKeyDown={onClickCellInner(squareId, cellItem)}
+                onKeyDown={onKeyDownCellInner(squareId, cellItem)}
                 onClick={onClickCellInner(squareId, cellItem)}
                 data-square={squareId}
                 className={cn(styles.cell, {

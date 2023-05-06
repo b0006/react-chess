@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { Chess, Move } from 'chess.js';
-import { BoardState, UseChessboardProps, UseChessboardReturn } from './types';
-import { getPositionForCastlingPiece, isCastlingMove, setAnimationMove } from './utils';
+import { BoardState, UseChessboardProps, UseChessboardReturn } from '../types';
+import { getPositionForCastlingPiece, isCastlingMove, setAnimationMove } from '../utils';
 
 export const useChessboard = ({ withAnimationPiece }: UseChessboardProps): UseChessboardReturn => {
   const boardElRef = useRef<HTMLDivElement>(null);

@@ -4,7 +4,7 @@ import { Chessboard, useChessboard } from '../../components/Chessboard';
 
 const StartPage: FC = () => {
   const { chessEngine, boardElRef, boardState, onMove, onUndoMove } = useChessboard({
-    withAnimationPiece: false,
+    withAnimationPiece: true,
   });
 
   const onClickCell = (_: string, move: Move | null) => {

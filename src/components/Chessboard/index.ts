@@ -1,3 +1,3 @@
 export { Chessboard } from './Chessboard';
-export { useChessboard } from './useChessboard.hook';
+export * from './hooks';
 export * from './types';
