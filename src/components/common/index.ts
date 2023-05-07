@@ -6,3 +6,5 @@ export * from './Switcher';
 export * from './Select';
 export * from './SlideDownUp';
 export * from './Scrollbar';
+export * from './Notification';
+export * from './Input';
