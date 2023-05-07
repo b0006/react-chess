@@ -35,7 +35,6 @@ export const CellTable: FC<CellTableProps> = ({ chessEngine, boardState, onMove 
     );
 
     if (!cellItem && !posibleMoves[squareId]) {
-      onMove?.(null);
       setPosibleMoves({});
       return;
     }
