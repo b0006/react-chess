@@ -51,6 +51,7 @@ export const useChessboard = ({
       promotion: extendPromotion || autopromotionPiece,
     });
 
+    console.log(moved);
     if (!moved) {
       console.error('Move error:', { nextMove: move });
       return;

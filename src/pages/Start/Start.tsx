@@ -19,6 +19,7 @@ const StartPage: FC = () => {
   const onClick = () => {
     const moves = chessEngine.moves({ verbose: true });
     const move = moves[Math.floor(Math.random() * moves.length)];
+    console.log('4');
     onMove(move);
   };
 

@@ -34,21 +34,17 @@ export const CellTable: FC<CellTableProps> = ({ chessEngine, boardState, onMove 
       {} as Record<string, Move>,
     );
 
-    setPosibleMoves((prevMoveData) => {
-      let nextMove: Move | null = null;
+    if (!cellItem && !posibleMoves[squareId]) {
+      onMove?.(null);
+      setPosibleMoves({});
+      return;
+    }
 
-      if (!cellItem && !prevMoveData[squareId]) {
-        onMove?.(nextMove);
-        return {};
-      }
+    if (posibleMoves[squareId]) {
+      onMove?.(posibleMoves[squareId]);
+    }
 
-      if (prevMoveData[squareId]) {
-        nextMove = prevMoveData[squareId];
-      }
-
-      onMove?.(nextMove);
-      return movesData;
-    });
+    setPosibleMoves(movesData);
   };
 
   const onKeyDownCellInner =
