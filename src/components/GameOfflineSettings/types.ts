@@ -1,4 +1,5 @@
 import { PieceColor } from 'chess.js';
+import { GameData } from '../../store/offlineGame/types';
 import { PromotionPiece } from '../Chessboard';
 
 export interface DificultItem {
@@ -16,12 +17,13 @@ export interface AutoPromotionItem {
   value: PromotionPiece;
 }
 
-export interface FormFields {
-  isAutoPromotion: boolean;
-  autopromotionPiece: PromotionPiece;
-  isColoredMoves: boolean;
-  isConfirmSteps: boolean;
-  isAudioOn: boolean;
-  difficult: number;
-  myColor: PieceColor;
-}
+export type FormFields = Pick<
+  GameData,
+  | 'isAutoPromotion'
+  | 'autopromotionPiece'
+  | 'isColoredMoves'
+  | 'isConfirmSteps'
+  | 'isAudioOn'
+  | 'difficult'
+  | 'myColor'
+>;

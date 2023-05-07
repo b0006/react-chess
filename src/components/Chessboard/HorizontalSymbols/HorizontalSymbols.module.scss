@@ -1,13 +1,23 @@
+@import 'src/assets/scss/utils';
+
 .horizontalPanel {
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: calc(10vmin * 0.4);
+  height: calc(11.5vmin * 0.4);
+
+  @media #{$screen-md} {
+    height: calc(10vmin * 0.4);
+  }
 }
 
 .alphabetSymbol {
-  width: 10vmin;
+  width: 11.5vmin;
   display: flex;
   justify-content: center;
+
+  @media #{$screen-md} {
+    width: 10vmin;
+  }
 }

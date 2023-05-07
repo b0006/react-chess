@@ -1,6 +1,9 @@
 import { FC, useState } from 'react';
 import cn from 'classnames';
+import { observer } from 'mobx-react';
 import { useForm, Controller } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import { offlineGameStore } from '../../store';
 import { Button, ModalLayout, Switcher, Select } from '../common';
 import { ColorItem, DificultItem, AutoPromotionItem, FormFields } from './types';
 import styles from './GameOfflineSettings.module.scss';
@@ -28,7 +31,10 @@ const COLOR_LIST: ColorItem[] = [
   { label: 'Black', value: 'b' },
 ];
 
-export const GameOfflineSettings: FC = () => {
+export const GameOfflineSettings: FC = observer(() => {
+  const { startGame } = offlineGameStore;
+  const navigate = useNavigate();
+
   const [isShownModal, setIsShownModal] = useState(false);
 
   const { watch, register, handleSubmit, control } = useForm<FormFields>({
@@ -45,14 +51,9 @@ export const GameOfflineSettings: FC = () => {
 
   const isAutoPromotionValue = watch('isAutoPromotion');
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const onSubmit = (data: FormFields): void => {
-    // setGameData({
-    //   ...data,
-    //   isPlaying: true,
-    //   isVersusAi: true,
-    // });
-    // history.push('/offline-game');
+    startGame(data);
+    navigate('/offline-chess-game');
   };
 
   return (
@@ -134,4 +135,4 @@ export const GameOfflineSettings: FC = () => {
       )}
     </>
   );
-};
+});
