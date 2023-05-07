@@ -1,0 +1,30 @@
+@import 'src/assets/scss/utils';
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.button {
+  margin-left: 12px;
+}
+
+.desktop {
+  display: none;
+
+  @media #{$screen-md} {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.mobile {
+  display: block;
+
+  @media #{$screen-md} {
+    display: none;
+  }
+}

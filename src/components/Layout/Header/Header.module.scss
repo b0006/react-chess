@@ -17,3 +17,15 @@
   padding-top: 10px;
   padding-bottom: 10px;
 }
+
+.left, .center, .right {
+  flex: 1;
+}
+
+.left {
+  text-align: left;
+}
+
+.center {
+  text-align: center;
+}
