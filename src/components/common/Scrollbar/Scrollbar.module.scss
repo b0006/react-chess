@@ -1,0 +1,21 @@
+@import 'src/assets/scss/utils';
+
+.scrollbar {
+  scroll-behavior: smooth;
+
+  /* Firefox */
+  scrollbar-color: $c-gray-k rgba(0, 0, 0, 0);
+  scrollbar-width: thin;
+
+  /* WebKit and Chromiums */
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background-color: rgba(0, 0, 0, 0);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $c-gray-k;
+    border-radius: 5px;
+  }
+}

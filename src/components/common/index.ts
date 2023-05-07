@@ -5,3 +5,4 @@ export * from './SvgIcon';
 export * from './Switcher';
 export * from './Select';
 export * from './SlideDownUp';
+export * from './Scrollbar';
