@@ -26,9 +26,7 @@ export const useChessboard = ({
   const [boardState, setBoardState] = useState<BoardState | null>(chessRef.current.board());
 
   const updateBoardState = () => {
-    // the first move exec react-error while moving without animation
-    // setBoardState(chessRef.current.board();
-    setTimeout(() => setBoardState(chessRef.current.board()), 1);
+    setBoardState(chessRef.current.board());
   };
 
   const onMove = (move: Move | null, extendPromotion?: PromotionPiece) => {
@@ -37,9 +35,7 @@ export const useChessboard = ({
     }
 
     if (move.promotion && !withAutopromotion && !extendPromotion) {
-      // the first move exec react-error while moving without animation
-      // setIsShownPromotion(true);
-      setTimeout(() => setPromotionState({ isShownModal: true, move }), 1);
+      setPromotionState({ isShownModal: true, move });
       return;
     }
 
