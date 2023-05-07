@@ -11,8 +11,8 @@ const RightContent: FC = () => {
       <div className={styles.desktop}>
         {IS_AUTH && (
           <>
-            <Button href='/profile' text='Профиль' icon='profile' iconSide='right' />
-            <Button className={styles.button} text='Выход' icon='logout' iconSide='right' />
+            <Button href='/profile' text='Profile' icon='profile' iconSide='right' />
+            <Button className={styles.button} text='Logout' icon='logout' iconSide='right' />
           </>
         )}
         {!IS_AUTH && (
