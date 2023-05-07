@@ -1,6 +1,7 @@
-import { ChessboardProps } from '../types';
+import { BoardState, ChessboardProps } from '../types';
 
-export type CellTableProps = Pick<
-  ChessboardProps,
-  'onMove' | 'boardState' | 'chessEngine' | 'isEnemyMoving'
->;
+export interface CellTableProps
+  extends Pick<ChessboardProps, 'onMove' | 'chessEngine' | 'isEnemyMoving'> {
+  boardState: BoardState;
+  isRotate: boolean;
+}

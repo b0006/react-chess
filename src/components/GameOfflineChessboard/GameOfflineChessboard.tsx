@@ -19,6 +19,7 @@ export const GameOfflineChessboard: FC = observer(() => {
   return (
     <div>
       <Chessboard
+        myColor={game.myColor}
         chessEngine={chessEngine}
         boardState={boardState}
         ref={boardElRef}

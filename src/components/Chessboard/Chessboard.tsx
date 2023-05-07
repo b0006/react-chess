@@ -9,7 +9,12 @@ import { PromotionModal } from './PromotionModal';
 import { StatusBar } from './StatusBar';
 
 export const Chessboard = forwardRef<HTMLDivElement, ChessboardProps>(
-  ({ boardState, chessEngine, promotionState, isEnemyMoving, setPromotionState, onMove }, ref) => {
+  (
+    { boardState, chessEngine, promotionState, isEnemyMoving, myColor, setPromotionState, onMove },
+    ref,
+  ) => {
+    const isRotate = myColor === 'b';
+
     const innerOnMove = (move: Move | null, extendPromotion?: PromotionPiece) => {
       if (isEnemyMoving) {
         return;
@@ -18,23 +23,28 @@ export const Chessboard = forwardRef<HTMLDivElement, ChessboardProps>(
       onMove(move, extendPromotion);
     };
 
+    if (!boardState) {
+      return <div>Chessboard error</div>;
+    }
+
     return (
       <>
         <StatusBar isEnemyMoving={isEnemyMoving} chessEngine={chessEngine} />
         <div ref={ref} className={styles.chessboard}>
           <div className={styles.inner}>
-            <HorizontalSymbols />
+            <HorizontalSymbols isRotate={isRotate} />
             <div className={styles.game}>
-              <VerticalSymbols />
+              <VerticalSymbols isRotate={isRotate} />
               <CellTable
                 isEnemyMoving={isEnemyMoving}
                 boardState={boardState}
                 chessEngine={chessEngine}
+                isRotate={isRotate}
                 onMove={innerOnMove}
               />
-              <VerticalSymbols />
+              <VerticalSymbols isRotate={isRotate} />
             </div>
-            <HorizontalSymbols />
+            <HorizontalSymbols isRotate={isRotate} />
           </div>
         </div>
         {promotionState.isShownModal && (

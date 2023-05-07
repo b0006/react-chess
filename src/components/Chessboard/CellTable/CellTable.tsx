@@ -12,9 +12,14 @@ export const CellTable: FC<CellTableProps> = ({
   chessEngine,
   boardState,
   isEnemyMoving,
+  isRotate,
   onMove,
 }) => {
   const boardElRef = useRef<HTMLDivElement>(null);
+
+  const viewBoardState = isRotate
+    ? [...boardState].reverse().map((row) => [...row].reverse())
+    : boardState;
 
   const [posibleMoves, setPosibleMoves] = useState<Record<string, Move>>({});
 
@@ -72,13 +77,16 @@ export const CellTable: FC<CellTableProps> = ({
       }
     };
 
+  const viewDigitList = isRotate ? [...DIGIT_LIST].reverse() : DIGIT_LIST;
+  const viewSymbolList = isRotate ? [...SYMBOL_LIST].reverse() : SYMBOL_LIST;
+
   return (
     <div className={styles.board} ref={boardElRef}>
-      {DIGIT_LIST.map((digit, digitIndex) => (
+      {viewDigitList.map((digit, digitIndex) => (
         <div key={digit} className={styles.row}>
-          {SYMBOL_LIST.map((sym, symIndex) => {
+          {viewSymbolList.map((sym, symIndex) => {
             const squareId = `${sym}${digit}`;
-            const cellItem: BoardCell | null = boardState?.[digitIndex]?.[symIndex] || null;
+            const cellItem: BoardCell | null = viewBoardState?.[digitIndex]?.[symIndex] || null;
             const Icon = cellItem ? ICONS_DEFAULT?.[cellItem.color]?.[cellItem.type] : null;
 
             const isLightCell = (symIndex + digitIndex) % 2 === 0;

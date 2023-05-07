@@ -33,6 +33,7 @@ export interface ChessboardProps
     'boardState' | 'chessEngine' | 'promotionState' | 'setPromotionState' | 'onMove'
   > {
   isEnemyMoving?: boolean;
+  myColor: PieceColor;
 }
 
 export interface ChessEngine {

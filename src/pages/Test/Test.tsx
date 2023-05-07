@@ -25,6 +25,7 @@ const TestPage: FC = () => {
   return (
     <div>
       <Chessboard
+        myColor='b'
         chessEngine={chessEngine}
         boardState={boardState}
         ref={boardElRef}
