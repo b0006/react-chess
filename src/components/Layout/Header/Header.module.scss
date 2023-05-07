@@ -1,0 +1,19 @@
+@import 'src/assets/scss/utils';
+
+.header {
+  box-shadow: $shadow-default;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: $c-white;
+  z-index: 100;
+  min-height: 72px;
+}
+
+.inner {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
