@@ -1,4 +1,4 @@
-import { useEffect, useCallback, useRef } from 'react';
+import { useEffect, useCallback, useRef, useState } from 'react';
 import { ChessInstance, Move } from 'chess.js';
 import { ChessEngine, PromotionPiece } from '../Chessboard';
 import { UseAiEngineProps } from './types';
@@ -26,6 +26,8 @@ const getEnemyMoveByString = (stateChess: ChessInstance, bestMoveLine: string): 
 };
 
 export const useAiEngine = ({ chessEngine, game, onMove }: UseAiEngineProps) => {
+  const [isAiMoving, setIsAiMoving] = useState(false);
+
   const engineRef = useRef<ChessEngine>();
   const isMyTurn = chessEngine.turn() === game.myColor;
 
@@ -35,6 +37,7 @@ export const useAiEngine = ({ chessEngine, game, onMove }: UseAiEngineProps) => 
       return;
     }
 
+    setIsAiMoving(true);
     engineRef.current.postMessage(`position fen ${chessEngine.fen()}`);
     engineRef.current.postMessage(`go depth ${game.difficult}`);
   }, [game.difficult, game.myColor]);
@@ -54,8 +57,8 @@ export const useAiEngine = ({ chessEngine, game, onMove }: UseAiEngineProps) => 
         const [name, value]: string[] = event.split(' ');
         if (name === 'bestmove' && value) {
           const move = getEnemyMoveByString(chessEngine, value);
-          console.log('AI move', move);
           onMove(move);
+          setIsAiMoving(false);
         }
       }
     },
@@ -84,4 +87,6 @@ export const useAiEngine = ({ chessEngine, game, onMove }: UseAiEngineProps) => 
 
     loadEngine();
   }, [chessEngine, game, onEngineEvent]);
+
+  return { isAiMoving };
 };

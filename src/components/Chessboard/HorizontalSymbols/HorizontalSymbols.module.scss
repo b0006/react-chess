@@ -5,7 +5,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: calc(11.5vmin * 0.4);
+  height: calc(11.3vmin * 0.4);
 
   @media #{$screen-md} {
     height: calc(10vmin * 0.4);
@@ -13,7 +13,7 @@
 }
 
 .alphabetSymbol {
-  width: 11.5vmin;
+  width: 11.3vmin;
   display: flex;
   justify-content: center;
 

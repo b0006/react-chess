@@ -1,7 +1,7 @@
 @import 'src/assets/scss/utils';
 
 .verticalPanel {
-  width: calc(11.5vmin * 0.4);
+  width: calc(11.3vmin * 0.4);
 
   @media #{$screen-md} {
     width: calc(10vmin * 0.4);
@@ -9,7 +9,7 @@
 }
 
 .digitSymbol {
-  height: 11.5vmin;
+  height: 11.3vmin;
   display: flex;
   justify-content: center;
   align-items: center;

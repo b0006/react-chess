@@ -14,7 +14,7 @@ export const GameOfflineChessboard: FC = observer(() => {
       autopromotionPiece: game.autopromotionPiece,
     });
 
-  useAiEngine({ chessEngine, game, onMove });
+  const { isAiMoving } = useAiEngine({ chessEngine, game, onMove });
 
   return (
     <div>
@@ -23,6 +23,7 @@ export const GameOfflineChessboard: FC = observer(() => {
         boardState={boardState}
         ref={boardElRef}
         promotionState={promotionState}
+        isEnemyMoving={isAiMoving}
         setPromotionState={setPromotionState}
         onMove={onMove}
       />

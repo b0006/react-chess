@@ -8,7 +8,12 @@ import { BoardCell } from '../types';
 import { CellTableProps } from './types';
 import styles from './CellTable.module.scss';
 
-export const CellTable: FC<CellTableProps> = ({ chessEngine, boardState, onMove }) => {
+export const CellTable: FC<CellTableProps> = ({
+  chessEngine,
+  boardState,
+  isEnemyMoving,
+  onMove,
+}) => {
   const boardElRef = useRef<HTMLDivElement>(null);
 
   const [posibleMoves, setPosibleMoves] = useState<Record<string, Move>>({});
@@ -25,6 +30,10 @@ export const CellTable: FC<CellTableProps> = ({ chessEngine, boardState, onMove 
   }, [boardState]);
 
   const onClickCellInner = (cellItem: BoardCell | null, squareId: string) => () => {
+    if (isEnemyMoving) {
+      return;
+    }
+
     const moveList = chessEngine.moves({ square: squareId, verbose: true }) || [];
     const movesData = moveList.reduce(
       (result, move) => ({
@@ -49,6 +58,10 @@ export const CellTable: FC<CellTableProps> = ({ chessEngine, boardState, onMove 
   const onKeyDownCellInner =
     (cellItem: BoardCell | null, squareId: string) =>
     (event: React.KeyboardEvent<HTMLDivElement>) => {
+      if (isEnemyMoving) {
+        return;
+      }
+
       switch (event.key) {
         // TODO: move by arrows
         case 'Enter':

@@ -1,0 +1,48 @@
+@import 'src/assets/scss/utils';
+
+.wrapper {
+  margin: 12px 0;
+  display: flex;
+  flex-direction: column;
+  background-color: #8093b6;
+  border-radius: 4px;
+
+  @media #{$screen-md} {
+    flex-direction: row;
+  }
+}
+
+.status {
+  opacity: 0;
+  transition: opacity 0.25s;
+  display: flex;
+  align-items: center;
+  padding: 4px 12px;
+  font-size: 16px;
+
+  @media #{$screen-md} {
+    max-width: 30vmin;
+  }
+
+  &-show {
+    opacity: 1;
+  }
+}
+
+.history {
+  &-wrapper {
+    display: flex;
+    flex: 1;
+    overflow-x: scroll;
+    padding: 4px 12px;
+    border: 1px solid;
+    border-radius: 4px;
+    min-height: 44px;
+  }
+
+  &-item {
+    &:not(:last-child) {
+      margin-right: 12px;
+    }
+  }
+}

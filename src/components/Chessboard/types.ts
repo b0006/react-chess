@@ -27,10 +27,13 @@ export interface UseChessboardReturn {
   onUndoMove: () => void;
 }
 
-export type ChessboardProps = Pick<
-  UseChessboardReturn,
-  'boardState' | 'chessEngine' | 'promotionState' | 'setPromotionState' | 'onMove'
->;
+export interface ChessboardProps
+  extends Pick<
+    UseChessboardReturn,
+    'boardState' | 'chessEngine' | 'promotionState' | 'setPromotionState' | 'onMove'
+  > {
+  isEnemyMoving?: boolean;
+}
 
 export interface ChessEngine {
   postMessage: (line: string) => void;
