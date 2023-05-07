@@ -7,7 +7,7 @@ import { SelectOption } from './SelectOption';
 import styles from './Select.module.scss';
 import { OptionValue, Option, SelectProps } from './types';
 
-const Select: FC<SelectProps> = ({
+export const Select: FC<SelectProps> = ({
   label,
   wrapperStyle,
   isOutsideClickClose = true,
@@ -21,7 +21,7 @@ const Select: FC<SelectProps> = ({
   const buttonsRef = useRef<HTMLDivElement>(null);
 
   const [activeOption, setActiveOption] = useState<Option | null>(
-    options.filter((option) => option.value === value)[0]
+    options.filter((option) => option.value === value)[0],
   );
 
   const [isOpen, setIsOpen] = useState(false);
@@ -60,7 +60,9 @@ const Select: FC<SelectProps> = ({
 
   useClickOutside(contentRef, onOutSideClick);
 
-  const onClickPreview = (event: MouseEvent<HTMLDivElement> | KeyboardEvent<HTMLDivElement>): void => {
+  const onClickPreview = (
+    event: MouseEvent<HTMLDivElement> | KeyboardEvent<HTMLDivElement>,
+  ): void => {
     if (!isOpen && !buttonsRef.current?.contains(event.target as Node)) {
       setIsOpen(true);
     }
@@ -75,17 +77,27 @@ const Select: FC<SelectProps> = ({
       ref={contentRef}
     >
       <span className={styles.label}>{label}</span>
-      <div className={styles.preview} role="button" tabIndex={0} onClick={onClickPreview} onKeyPress={onClickPreview}>
+      <div
+        className={styles.preview}
+        role='button'
+        tabIndex={0}
+        onClick={onClickPreview}
+        onKeyPress={onClickPreview}
+      >
         <span className={styles['active-option']}>{activeOption && activeOption.label}</span>
         <div className={styles.icons} ref={buttonsRef}>
           {activeOption && withEmptyOption && (
-            <button className={cn(styles.button, styles['button-remove'])} onClick={onClickOption(null)} type="button">
-              <SvgIcon kind="cross" className={styles.icon} />
+            <button
+              className={cn(styles.button, styles['button-remove'])}
+              onClick={onClickOption(null)}
+              type='button'
+            >
+              <SvgIcon kind='cross' className={styles.icon} />
             </button>
           )}
-          <button className={styles.button} onClick={onToggleList} type="button">
+          <button className={styles.button} onClick={onToggleList} type='button'>
             <SvgIcon
-              kind="chevronDown"
+              kind='chevronDown'
               className={cn(styles.icon, styles.arrow, {
                 [styles.arrow_up]: isOpen,
               })}
@@ -123,5 +135,3 @@ const Select: FC<SelectProps> = ({
     </div>
   );
 };
-
-export { Select };

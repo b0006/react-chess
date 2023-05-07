@@ -3,7 +3,7 @@ import cn from 'classnames';
 import styles from './Container.module.scss';
 import { ContainerProps } from './types';
 
-const Container = forwardRef(
+export const Container = forwardRef(
   ({ children, className, as = 'div', ...rest }: ContainerProps, ref: LegacyRef<never>) => {
     const Tag = as;
     return (
@@ -15,5 +15,3 @@ const Container = forwardRef(
 );
 
 Container.displayName = 'Container';
-
-export { Container };

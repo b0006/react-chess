@@ -4,7 +4,7 @@ import { Container } from '../Container';
 import styles from './Header.module.scss';
 import { RightContent } from './RightContent';
 
-const Header: FC = () => {
+export const Header: FC = () => {
   return (
     <header className={styles.header}>
       <Container className={styles.inner}>
@@ -19,5 +19,3 @@ const Header: FC = () => {
     </header>
   );
 };
-
-export { Header };

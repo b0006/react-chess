@@ -1,11 +1,11 @@
 import { FC } from 'react';
 import { Container } from '../../components/Layout/Container';
-import { MainMenu } from './MainMenu';
+import { SignInForm } from '../../components/Profile/SignInForm/SignInForm';
 
-export const StartPage: FC = () => {
+export const SignInPage: FC = () => {
   return (
     <Container>
-      <MainMenu />
+      <SignInForm />
     </Container>
   );
 };

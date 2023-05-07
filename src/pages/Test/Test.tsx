@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Chessboard, useChessboard } from '../../components/Chessboard';
 
-const TestPage: FC = () => {
+export const TestPage: FC = () => {
   const {
     chessEngine,
     boardElRef,
@@ -38,5 +38,3 @@ const TestPage: FC = () => {
     </div>
   );
 };
-
-export { TestPage };

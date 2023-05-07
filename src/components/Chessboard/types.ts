@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, RefObject } from 'react';
 import { PieceColor, PieceType, Move, Square, ChessInstance } from 'chess.js';
 
 export type BoardCell = { type: PieceType; color: PieceColor; square: Square } | null;
@@ -19,7 +19,7 @@ export interface PromotionState {
 
 export interface UseChessboardReturn {
   chessEngine: ChessInstance;
-  boardElRef: React.RefObject<HTMLDivElement>;
+  boardElRef: RefObject<HTMLDivElement>;
   boardState: BoardState | null;
   promotionState: PromotionState;
   setPromotionState: Dispatch<SetStateAction<PromotionState>>;

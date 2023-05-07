@@ -5,7 +5,7 @@ import { Header } from '../Header';
 import { Footer } from '../Footer';
 import styles from './Layout.module.scss';
 
-const Layout: FC = () => {
+export const Layout: FC = () => {
   return (
     <NotificationProvider>
       <div className={styles.layout}>
@@ -18,5 +18,3 @@ const Layout: FC = () => {
     </NotificationProvider>
   );
 };
-
-export { Layout };

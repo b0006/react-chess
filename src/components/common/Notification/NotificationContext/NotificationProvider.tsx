@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import { FC, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 
 import { NotificationLayout } from '../NotificationLayout';
@@ -19,7 +19,7 @@ interface Props {
   children?: ReactNode | ReactNode[];
 }
 
-const Provider: React.FC<Props> = ({ portalTargetSelector, children }) => {
+export const Provider: FC<Props> = ({ portalTargetSelector, children }) => {
   const [state] = useNotificationContext();
 
   const portalTarget = canUseDOM
@@ -29,7 +29,7 @@ const Provider: React.FC<Props> = ({ portalTargetSelector, children }) => {
     : null;
 
   return (
-    <React.Fragment>
+    <>
       {children}
       {portalTarget ? (
         createPortal(
@@ -50,7 +50,7 @@ const Provider: React.FC<Props> = ({ portalTargetSelector, children }) => {
       ) : (
         <NotificationLayout />
       )}
-    </React.Fragment>
+    </>
   );
 };
 
@@ -99,5 +99,3 @@ export const useNotification = (): {
     removeAllNotifications: removeAll,
   };
 };
-
-export { Provider };

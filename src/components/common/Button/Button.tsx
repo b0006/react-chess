@@ -5,7 +5,7 @@ import { SvgIcon } from '../SvgIcon';
 import styles from './Button.module.scss';
 import { ButtonProps } from './types';
 
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
       text,
@@ -75,5 +75,3 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 );
 
 Button.displayName = 'Button';
-
-export { Button };

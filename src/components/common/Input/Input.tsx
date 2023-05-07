@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { InputHTMLAttributes, LegacyRef, FocusEvent, forwardRef, useState } from 'react';
 import cn from 'classnames';
 import { SvgIcon } from '../SvgIcon';
 import styles from './Input.module.scss';
 
-export interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface Props extends InputHTMLAttributes<HTMLInputElement> {
   errorText?: string;
   placeholder?: string;
   label?: string;
@@ -11,7 +11,7 @@ export interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   description?: string;
 }
 
-export const Input = React.forwardRef((props: Props, ref?: React.LegacyRef<HTMLInputElement>) => {
+export const Input = forwardRef((props: Props, ref?: LegacyRef<HTMLInputElement>) => {
   const {
     className,
     label,
@@ -28,7 +28,7 @@ export const Input = React.forwardRef((props: Props, ref?: React.LegacyRef<HTMLI
 
   const [isLabelTop, setIsLabelTop] = useState(false);
 
-  const onFocusInput = (event: React.FocusEvent<HTMLInputElement>): void => {
+  const onFocusInput = (event: FocusEvent<HTMLInputElement>): void => {
     setIsLabelTop(true);
 
     if (onFocus) {
@@ -36,7 +36,7 @@ export const Input = React.forwardRef((props: Props, ref?: React.LegacyRef<HTMLI
     }
   };
 
-  const onBlurInput = (event: React.FocusEvent<HTMLInputElement>): void => {
+  const onBlurInput = (event: FocusEvent<HTMLInputElement>): void => {
     if (event.target.value === '') {
       setIsLabelTop(false);
     }

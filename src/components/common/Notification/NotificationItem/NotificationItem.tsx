@@ -14,7 +14,7 @@ const ICON_KIND_DATA: Record<Appearance, keyof typeof ICON_LIST> = {
   warning: 'warning',
 };
 
-const NotificationItem: FC<NotificationItemProps> = ({
+export const NotificationItem: FC<NotificationItemProps> = ({
   title,
   description,
   id,
@@ -68,5 +68,3 @@ const NotificationItem: FC<NotificationItemProps> = ({
     </div>
   );
 };
-
-export { NotificationItem };

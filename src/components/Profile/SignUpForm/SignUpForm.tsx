@@ -1,33 +1,36 @@
-import { FC } from 'react';
+import { FC, useRef } from 'react';
 import { useForm } from 'react-hook-form';
-import { Button, Input } from '../../common';
+import { Input, Button } from '../../common';
 import { FormLayout } from '../FormLayout';
-import styles from './SignInForm.module.scss';
+import styles from './SignUpForm.module.scss';
 import { FormFields } from './types';
 
-export const SignInForm: FC = () => {
+export const SignUpForm: FC = () => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<FormFields>();
 
+  const password = useRef('');
+  password.current = watch('password', '');
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const onSubmit = async (data: FormFields): Promise<void> => {
-    // const { error, response } = await signInRequst(data);
+    // const { error, response } = await signUpRequst(data);
     // if (error || !response) {
     //   addNotification({ title: 'Ошибка', description: error || 'Попробуйте еще раз' }, { appearance: 'error' });
     //   return;
     // }
-    // saveToken(response.accessToken);
-    // setProfileData(response.userData);
+    // setProfileData(response);
     // history.push('/');
   };
 
   return (
     <FormLayout isLoading={false}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <h1 className={styles.title}>Sign in</h1>
+        <h1 className={styles.title}>Sign up</h1>
         <Input
           className={styles.input}
           label='Email'
@@ -38,6 +41,23 @@ export const SignInForm: FC = () => {
             pattern: {
               value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
               message: 'Incorrect email',
+            },
+          })}
+        />
+        <Input
+          className={styles.input}
+          label='Login'
+          placeholder='login'
+          errorText={errors.username?.message}
+          {...register('username', {
+            required: 'Enter login',
+            minLength: {
+              value: 3,
+              message: 'Too short',
+            },
+            maxLength: {
+              value: 48,
+              message: 'Too big',
             },
           })}
         />
@@ -58,7 +78,17 @@ export const SignInForm: FC = () => {
             },
           })}
         />
-        <Button className={styles.button} type='submit' text='Submit' theme='primary' />
+        <Input
+          className={styles.input}
+          type='password'
+          label='Confirm password'
+          errorText={errors.confirmPassword?.message}
+          {...register('confirmPassword', {
+            required: 'Confirm password',
+            validate: (value) => value === password.current || 'Passwords is not equal',
+          })}
+        />
+        <Button className={styles.button} type='submit' text='Continue' theme='primary' />
       </form>
     </FormLayout>
   );

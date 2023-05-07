@@ -1,11 +1,11 @@
 import { FC } from 'react';
 import { Container } from '../../components/Layout/Container';
-import { MainMenu } from './MainMenu';
+import { SignUpForm } from '../../components/Profile/SignUpForm';
 
-export const StartPage: FC = () => {
+export const SignUpPage: FC = () => {
   return (
     <Container>
-      <MainMenu />
+      <SignUpForm />
     </Container>
   );
 };

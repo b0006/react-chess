@@ -1,4 +1,11 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, {
+  FC,
+  KeyboardEvent,
+  MouseEvent as ReactMouseEvent,
+  useState,
+  useRef,
+  useCallback,
+} from 'react';
 import cn from 'classnames';
 import { SvgIcon } from '../SvgIcon';
 import { ClientOnlyPortal } from './ClientOnlyPortal';
@@ -6,7 +13,7 @@ import styles from './ModalLayout.module.scss';
 import { ModalLayoutProps } from './types';
 
 // TODO: bugfix - any times close animation not working
-export const ModalLayout: React.FC<ModalLayoutProps> = ({
+export const ModalLayout: FC<ModalLayoutProps> = ({
   portalTargetSelector,
   overlayClickClose,
   children,
@@ -35,7 +42,7 @@ export const ModalLayout: React.FC<ModalLayoutProps> = ({
   };
 
   const onOverlayClick = (
-    event: React.MouseEvent<HTMLDivElement, MouseEvent> | React.KeyboardEvent<HTMLDivElement>,
+    event: ReactMouseEvent<HTMLDivElement, MouseEvent> | KeyboardEvent<HTMLDivElement>,
   ) => {
     const innerEl = innerRef.current;
 

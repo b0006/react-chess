@@ -3,7 +3,7 @@ import cn from 'classnames';
 import styles from './Switcher.module.scss';
 import { SwitcherProps } from './types';
 
-const Switcher = forwardRef((props: SwitcherProps, ref?: LegacyRef<HTMLInputElement>) => {
+export const Switcher = forwardRef((props: SwitcherProps, ref?: LegacyRef<HTMLInputElement>) => {
   const { className, ...rest } = props;
   return (
     <label className={cn(styles.switch, className)}>
@@ -14,5 +14,3 @@ const Switcher = forwardRef((props: SwitcherProps, ref?: LegacyRef<HTMLInputElem
 });
 
 Switcher.displayName = 'Switcher';
-
-export { Switcher };

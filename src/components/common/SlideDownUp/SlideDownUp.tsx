@@ -3,7 +3,13 @@ import cn from 'classnames';
 import { SlideDownUpProps } from './types';
 import styles from './SlideDownUp.module.scss';
 
-const SlideDownUp: FC<SlideDownUpProps> = ({ isOpen, className, onAnimationOpenEnd, onAnimationCloseEnd, children }) => {
+export const SlideDownUp: FC<SlideDownUpProps> = ({
+  isOpen,
+  className,
+  onAnimationOpenEnd,
+  onAnimationCloseEnd,
+  children,
+}) => {
   const contentRef = useRef<HTMLDivElement>(null);
   const [heightContent, setHeightContent] = useState(0);
 
@@ -64,5 +70,3 @@ const SlideDownUp: FC<SlideDownUpProps> = ({ isOpen, className, onAnimationOpenE
     </div>
   );
 };
-
-export { SlideDownUp };

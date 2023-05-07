@@ -5,7 +5,7 @@ import styles from './RightContent.module.scss';
 // TODO
 const IS_AUTH = false;
 
-const RightContent: FC = () => {
+export const RightContent: FC = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.desktop}>
@@ -42,5 +42,3 @@ const RightContent: FC = () => {
     </div>
   );
 };
-
-export { RightContent };

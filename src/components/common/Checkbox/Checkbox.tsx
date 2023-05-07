@@ -4,7 +4,7 @@ import { SvgIcon } from '../SvgIcon';
 import styles from './Checkbox.module.scss';
 import { CheckboxProps } from './types';
 
-const Checkbox = forwardRef((props: CheckboxProps, ref?: LegacyRef<HTMLInputElement>) => {
+export const Checkbox = forwardRef((props: CheckboxProps, ref?: LegacyRef<HTMLInputElement>) => {
   const { label, className, isError, disabled, ...rest } = props;
 
   return (
@@ -24,5 +24,3 @@ const Checkbox = forwardRef((props: CheckboxProps, ref?: LegacyRef<HTMLInputElem
 });
 
 Checkbox.displayName = 'Checkbox';
-
-export { Checkbox };

@@ -1,3 +1,4 @@
+import { FunctionComponent, SVGProps } from 'react';
 import { PieceType, PieceColor } from 'chess.js';
 
 import { ReactComponent as BishopDark } from '../../assets/chess-icons/bishop-dark.svg';
@@ -14,7 +15,7 @@ import { ReactComponent as RookDark } from '../../assets/chess-icons/rook-dark.s
 import { ReactComponent as RookLight } from '../../assets/chess-icons/rook-light.svg';
 
 type ChessType = {
-  [key in PieceType]: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
+  [key in PieceType]: FunctionComponent<SVGProps<SVGSVGElement>>;
 };
 
 type IconsType = {
@@ -40,4 +41,4 @@ export const ICONS_DEFAULT: IconsType = {
   },
 };
 
-export type SvgIcon = React.FunctionComponent<React.SVGProps<SVGSVGElement>> | null;
+export type SvgIcon = FunctionComponent<SVGProps<SVGSVGElement>> | null;

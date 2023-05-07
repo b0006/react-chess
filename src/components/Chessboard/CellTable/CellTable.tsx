@@ -1,4 +1,4 @@
-import { FC, useState, useEffect, useRef } from 'react';
+import { FC, KeyboardEvent, useState, useEffect, useRef } from 'react';
 import { Move } from 'chess.js';
 import cn from 'classnames';
 import { useClickOutside } from '../../../hooks';
@@ -61,8 +61,7 @@ export const CellTable: FC<CellTableProps> = ({
   };
 
   const onKeyDownCellInner =
-    (cellItem: BoardCell | null, squareId: string) =>
-    (event: React.KeyboardEvent<HTMLDivElement>) => {
+    (cellItem: BoardCell | null, squareId: string) => (event: KeyboardEvent<HTMLDivElement>) => {
       if (isEnemyMoving) {
         return;
       }
