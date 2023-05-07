@@ -1,0 +1,47 @@
+.link {
+  display: inline-flex;
+  justify-content: center;
+  width: 100%;
+
+  &:not(:last-child) {
+    margin-bottom: 12px;
+  }
+}
+
+.button {
+  display: inline-flex;
+  justify-content: center;
+  width: 100%;
+
+  &:not(:last-child) {
+    margin-bottom: 12px;
+  }
+}
+
+.modal-inner {
+  max-width: 400px;
+}
+
+.field {
+  margin: 24px 0;
+}
+
+.title {
+  text-align: center;
+}
+
+.switcher {
+  margin-left: 12px;
+
+  &-title {
+    flex: 1;
+  }
+
+  &-line {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
