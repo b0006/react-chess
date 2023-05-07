@@ -16,7 +16,6 @@ export const PromotionModal: FC<PromotionModalProps> = ({
   const color: PieceColor = promotionState.move?.color || 'w';
 
   const onPromotionPieceClick = (piece: PromotionPiece) => () => {
-    console.log('3');
     onMove(promotionState.move, piece);
     setPromotionState({ isShownModal: false, move: null });
   };
