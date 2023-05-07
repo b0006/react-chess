@@ -1,11 +1,12 @@
 import { FC } from 'react';
-import { Link } from 'react-router-dom';
+import { Container } from '../../components/Layout/Container';
+import { MainMenu } from './MainMenu';
 
 const StartPage: FC = () => {
   return (
-    <div>
-      <Link to='/test'>Test page</Link>
-    </div>
+    <Container>
+      <MainMenu />
+    </Container>
   );
 };
 
