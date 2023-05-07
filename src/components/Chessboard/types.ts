@@ -31,3 +31,8 @@ export type ChessboardProps = Pick<
   UseChessboardReturn,
   'boardState' | 'chessEngine' | 'promotionState' | 'setPromotionState' | 'onMove'
 >;
+
+export interface ChessEngine {
+  postMessage: (line: string) => void;
+  onmessage: (event: string) => void;
+}
