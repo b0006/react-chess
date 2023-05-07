@@ -1,12 +1,12 @@
 import { FC, useState, useEffect, useRef } from 'react';
 import { Move } from 'chess.js';
 import cn from 'classnames';
-import styles from './CellTable.module.scss';
+import { useClickOutside } from '../../../hooks';
 import { DIGIT_LIST, SYMBOL_LIST } from '../constants';
 import { ICONS_DEFAULT } from '../icons';
-import { CellTableProps } from './types';
 import { BoardCell } from '../types';
-import { useClickOutside } from '../hooks';
+import { CellTableProps } from './types';
+import styles from './CellTable.module.scss';
 
 export const CellTable: FC<CellTableProps> = ({ chessEngine, boardState, onMove }) => {
   const boardElRef = useRef<HTMLDivElement>(null);
