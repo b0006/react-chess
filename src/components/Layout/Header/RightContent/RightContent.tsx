@@ -1,21 +1,30 @@
 import { FC } from 'react';
+import { observer } from 'mobx-react';
+import { profileStore } from '../../../../store';
 import { Button } from '../../../common';
 import styles from './RightContent.module.scss';
 
-// TODO
-const IS_AUTH = false;
+export const RightContent: FC = observer(() => {
+  const { userData, logout } = profileStore;
 
-export const RightContent: FC = () => {
+  const onLogoutClick = () => logout();
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.desktop}>
-        {IS_AUTH && (
+        {userData.isAuth && (
           <>
             <Button href='/profile' text='Profile' icon='profile' iconSide='right' />
-            <Button className={styles.button} text='Logout' icon='logout' iconSide='right' />
+            <Button
+              className={styles.button}
+              text='Logout'
+              icon='logout'
+              iconSide='right'
+              onClick={onLogoutClick}
+            />
           </>
         )}
-        {!IS_AUTH && (
+        {!userData.isAuth && (
           <>
             <Button
               className={styles.button}
@@ -41,4 +50,4 @@ export const RightContent: FC = () => {
       </div>
     </div>
   );
-};
+});

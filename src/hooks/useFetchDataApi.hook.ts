@@ -25,7 +25,7 @@ const useFetchDataApi = <T = UnknownObject, R = UnknownObject>(
       };
 
       try {
-        const response = await requests[method]<T, R>(url, data);
+        const response = await requests[method]<R, T>(url, data);
         if (response.status < 200 && response.status >= 300) {
           throw response.statusText;
         }

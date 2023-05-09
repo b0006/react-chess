@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { AxiosResponse } from 'axios';
 
 import { HTTP as axios } from './axios';
@@ -14,24 +13,15 @@ export interface ErrorApi {
 const timeout = 60000;
 
 const requests = {
-  POST<T = UnknownObject, R = UnknownObject>(
-    path: string,
-    data?: T,
-  ): Promise<AxiosResponse<R, any>> {
+  POST<R = UnknownObject, T = UnknownObject>(path: string, data?: T): Promise<AxiosResponse<R>> {
     return axios.post(path, data, { timeout });
   },
 
-  PUT<T = UnknownObject, R = UnknownObject>(
-    path: string,
-    data?: T,
-  ): Promise<AxiosResponse<R, any>> {
+  PUT<R = UnknownObject, T = UnknownObject>(path: string, data?: T): Promise<AxiosResponse<R>> {
     return axios.put(path, data, { timeout });
   },
 
-  GET<T = UnknownObject, R = UnknownObject>(
-    path: string,
-    params?: T,
-  ): Promise<AxiosResponse<R, any>> {
+  GET<R = UnknownObject, T = UnknownObject>(path: string, params?: T): Promise<AxiosResponse<R>> {
     return axios.get(path, {
       params,
       timeout,

@@ -1,4 +1,4 @@
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, observable } from 'mobx';
 import { GameData } from './types';
 
 const initGameData: GameData = {
@@ -16,7 +16,9 @@ export class GameStore {
   public game: GameData = initGameData;
 
   constructor() {
-    makeAutoObservable(this);
+    makeAutoObservable(this, {
+      game: observable,
+    });
   }
 
   public startGame = (data: Omit<GameData, 'isPlaying'>) => {

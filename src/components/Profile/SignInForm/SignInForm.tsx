@@ -1,12 +1,17 @@
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { useFetchDataApi } from '../../../hooks';
+import { profileStore } from '../../../store';
 import { Button, Input, useNotification } from '../../common';
 import { FormLayout } from '../FormLayout';
 import styles from './SignInForm.module.scss';
 import { FormFields, SignInResponse } from './types';
 
 export const SignInForm: FC = () => {
+  const navigate = useNavigate();
+  const { setProfileData } = profileStore;
+
   const {
     register,
     handleSubmit,
@@ -32,9 +37,8 @@ export const SignInForm: FC = () => {
       return;
     }
 
-    // saveToken(response.accessToken);
-    // setProfileData(response.userData);
-    // history.push('/');
+    setProfileData(response.userData, response.accessToken);
+    navigate('/');
   };
 
   return (
