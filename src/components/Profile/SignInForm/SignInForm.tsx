@@ -1,9 +1,10 @@
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
-import { Button, Input } from '../../common';
+import { useFetchDataApi } from '../../../hooks';
+import { Button, Input, useNotification } from '../../common';
 import { FormLayout } from '../FormLayout';
 import styles from './SignInForm.module.scss';
-import { FormFields } from './types';
+import { FormFields, SignInResponse } from './types';
 
 export const SignInForm: FC = () => {
   const {
@@ -12,20 +13,32 @@ export const SignInForm: FC = () => {
     formState: { errors },
   } = useForm<FormFields>();
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { addNotification } = useNotification();
+  const [isLoading, signInRequst] = useFetchDataApi<FormFields, SignInResponse>(
+    '/auth/sign-in/',
+    'POST',
+  );
+
   const onSubmit = async (data: FormFields): Promise<void> => {
-    // const { error, response } = await signInRequst(data);
-    // if (error || !response) {
-    //   addNotification({ title: 'Ошибка', description: error || 'Попробуйте еще раз' }, { appearance: 'error' });
-    //   return;
-    // }
+    const { error, response } = await signInRequst(data);
+
+    if (error || !response) {
+      const descriptionText = error || 'Попробуйте еще раз';
+
+      addNotification(
+        { title: 'Ошибка', description: descriptionText },
+        { id: descriptionText, appearance: 'error' },
+      );
+      return;
+    }
+
     // saveToken(response.accessToken);
     // setProfileData(response.userData);
     // history.push('/');
   };
 
   return (
-    <FormLayout isLoading={false}>
+    <FormLayout isLoading={isLoading}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <h1 className={styles.title}>Sign in</h1>
         <Input
