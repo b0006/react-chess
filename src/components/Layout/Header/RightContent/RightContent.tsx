@@ -1,13 +1,18 @@
 import { FC } from 'react';
 import { observer } from 'mobx-react';
+import { useNavigate } from 'react-router-dom';
 import { profileStore } from '../../../../store';
 import { Button } from '../../../common';
 import styles from './RightContent.module.scss';
 
 export const RightContent: FC = observer(() => {
+  const navigate = useNavigate();
   const { userData, logout } = profileStore;
 
-  const onLogoutClick = () => logout();
+  const onLogoutClick = () => {
+    logout();
+    navigate('/');
+  };
 
   return (
     <div className={styles.wrapper}>
