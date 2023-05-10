@@ -16,6 +16,8 @@ import { ReactComponent as SignInIcon } from '../../../assets/common-icons/sign-
 import { ReactComponent as UserClockIcon } from '../../../assets/common-icons/user-clock.svg';
 import { ReactComponent as UserPlusIcon } from '../../../assets/common-icons/user-plus.svg';
 import { ReactComponent as ChevronDownicon } from '../../../assets/common-icons/chevronDown.svg';
+import { ReactComponent as Plusicon } from '../../../assets/common-icons/plus.svg';
+import { ReactComponent as Playicon } from '../../../assets/common-icons/play.svg';
 
 const Empty: FC = () => null;
 
@@ -37,4 +39,6 @@ export const ICON_LIST = {
   userClock: UserClockIcon,
   userPlus: UserPlusIcon,
   chevronDown: ChevronDownicon,
+  plus: Plusicon,
+  play: Playicon,
 };

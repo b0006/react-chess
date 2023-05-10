@@ -3,7 +3,7 @@ import { PartyListProps } from './types';
 import styles from './PartyList.module.scss';
 import { Button } from '../../common';
 
-export const PartyList: FC<PartyListProps> = ({ list }) => {
+export const PartyList: FC<PartyListProps> = ({ list, onPartyStart }) => {
   return (
     <div>
       <h3 className={styles.title}>PartyList</h3>
@@ -15,7 +15,13 @@ export const PartyList: FC<PartyListProps> = ({ list }) => {
               {party.difficult && <div>Difficult: {party.difficult}</div>}
             </div>
             <div className={styles['buttons-wrapper']}>
-              <Button text='Play' />
+              <Button
+                text='Play'
+                icon='play'
+                iconSide='right'
+                theme='secondary'
+                onClick={() => onPartyStart(party.id)}
+              />
             </div>
           </div>
         ))}

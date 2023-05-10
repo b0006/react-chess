@@ -44,7 +44,6 @@ export const useAiEngine = ({ chessEngine, viewParty, onMove }: UseAiEngineProps
 
   useEffect(() => {
     if (!isMyTurn) {
-      console.log('START ENEMY MOVE');
       startEnemyMove();
     }
   }, [isMyTurn, startEnemyMove]);
