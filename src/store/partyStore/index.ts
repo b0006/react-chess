@@ -2,6 +2,7 @@ import { action, makeAutoObservable, observable } from 'mobx';
 import { ChessParty } from './types';
 
 const initPartyData: ChessParty = {
+  id: '',
   creater: '',
   blackPlayer: null,
   whitePlayer: null,
@@ -18,6 +19,8 @@ const initPartyData: ChessParty = {
   isColoredMoves: true,
   isConfirmSteps: false,
   myColor: 'w',
+  createdAt: '',
+  updatedAt: '',
 };
 
 export class PartyStore {
@@ -30,8 +33,17 @@ export class PartyStore {
       offlinePartyList: observable,
       onlinePartyList: observable,
       startOfflineParty: action,
+      setOfflinePartyList: action,
     });
   }
+
+  public setOfflinePartyList = (list: ChessParty[]) => {
+    this.offlinePartyList = list.map((party) => ({
+      ...party,
+      // TODO: computed my color correctly
+      myColor: party.whitePlayer ? 'w' : 'b',
+    }));
+  };
 
   public startOfflineParty = (partyData: ChessParty) => {
     this.viewParty = {

@@ -75,6 +75,8 @@ export const GameOfflineSettings: FC<GameOfflineSettingsProps> = observer(({ onC
       isColoredMoves: data.isColoredMoves,
       isConfirmSteps: data.isConfirmSteps,
       colorCreater: data.colorCreater,
+      isPlaying: true,
+      isVersusAi: true,
     });
 
     if (error || !response) {

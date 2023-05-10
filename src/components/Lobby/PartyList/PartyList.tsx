@@ -1,10 +1,25 @@
 import { FC } from 'react';
 import { PartyListProps } from './types';
+import styles from './PartyList.module.scss';
+import { Button } from '../../common';
 
-export const PartyList: FC<PartyListProps> = () => {
+export const PartyList: FC<PartyListProps> = ({ list }) => {
   return (
     <div>
-      <div>PartyList</div>
+      <h3 className={styles.title}>PartyList</h3>
+      <div className={styles.list}>
+        {list.map((party) => (
+          <div key={party.id} className={styles.item}>
+            <div>
+              <div>My color: {party.myColor}</div>
+              {party.difficult && <div>Difficult: {party.difficult}</div>}
+            </div>
+            <div className={styles['buttons-wrapper']}>
+              <Button text='Play' />
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

@@ -9,6 +9,7 @@ export type ChessGameOver =
   | 'threefoldRepetition';
 
 export interface ChessParty {
+  id: string;
   creater: string;
   whitePlayer: string | null;
   blackPlayer: string | null;
@@ -25,19 +26,22 @@ export interface ChessParty {
   isAudioOn: boolean;
   difficult: number;
   myColor: PieceColor;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface OfflineStartParty
   extends Omit<
     ChessParty,
-    | 'isVersusAi'
-    | 'isPlaying'
+    | 'id'
     | 'resultParty'
     | 'winPlayer'
     | 'whitePlayer'
     | 'creater'
     | 'blackPlayer'
     | 'myColor'
+    | 'createdAt'
+    | 'updatedAt'
   > {
   colorCreater: PieceColor;
 }

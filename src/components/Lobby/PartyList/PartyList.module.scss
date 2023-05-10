@@ -1,0 +1,33 @@
+@import 'src/assets/scss/utils';
+
+.title {
+  padding: 12px 0;
+  margin: 0;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+
+  .item {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 16px;
+    border: 2px solid $c-gray-l;
+    border-radius: 8px;
+    transition: border-color 0.25s;
+
+    &:hover {
+      border-color: $c-primary;
+    }
+
+    &:not(:first-child) {
+      margin-top: 12px;
+    }
+  }
+
+  .buttons-wrapper {
+    display: flex;
+    flex-direction: row;
+  }
+}
