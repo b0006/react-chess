@@ -19,7 +19,7 @@ export const TestPage: FC = () => {
   const onClick = () => {
     const moves = chessEngine.moves({ verbose: true });
     const move = moves[Math.floor(Math.random() * moves.length)];
-    onMove(move);
+    onMove({ move });
   };
 
   return (

@@ -53,10 +53,7 @@ export const CellTable: FC<CellTableProps> = ({
       return;
     }
 
-    if (posibleMoves[squareId]) {
-      onMove?.(posibleMoves[squareId]);
-    }
-
+    onMove?.({ move: posibleMoves[squareId] });
     setPosibleMoves(movesData);
   };
 

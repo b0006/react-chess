@@ -1,6 +1,5 @@
 import { forwardRef } from 'react';
-import { Move } from 'chess.js';
-import { ChessboardProps, PromotionPiece } from './types';
+import { ChessboardProps, OnMoveProps } from './types';
 import styles from './Chessboard.module.scss';
 import { HorizontalSymbols } from './HorizontalSymbols';
 import { VerticalSymbols } from './VerticalSymbols';
@@ -15,12 +14,12 @@ export const Chessboard = forwardRef<HTMLDivElement, ChessboardProps>(
   ) => {
     const isRotate = myColor === 'b';
 
-    const innerOnMove = (move: Move | null, extendPromotion?: PromotionPiece) => {
+    const innerOnMove = (options: OnMoveProps) => {
       if (isEnemyMoving) {
         return;
       }
 
-      onMove(move, extendPromotion);
+      onMove(options);
     };
 
     if (!boardState) {

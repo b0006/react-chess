@@ -17,13 +17,18 @@ export interface PromotionState {
   move: Move | null;
 }
 
+export interface OnMoveProps {
+  move: Move | null;
+  extendPromotion?: PromotionPiece;
+}
+
 export interface UseChessboardReturn {
   chessEngine: ChessInstance;
   boardElRef: RefObject<HTMLDivElement>;
   boardState: BoardState | null;
   promotionState: PromotionState;
   setPromotionState: Dispatch<SetStateAction<PromotionState>>;
-  onMove: (move: Move | null, extendPromotion?: PromotionPiece) => void;
+  onMove: (options: OnMoveProps) => void;
   onUndoMove: () => void;
 }
 

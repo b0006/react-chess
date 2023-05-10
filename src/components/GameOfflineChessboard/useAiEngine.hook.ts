@@ -56,7 +56,7 @@ export const useAiEngine = ({ chessEngine, viewParty, onMove }: UseAiEngineProps
         const [name, value]: string[] = event.split(' ');
         if (name === 'bestmove' && value) {
           const move = getEnemyMoveByString(chessEngine, value);
-          onMove(move);
+          onMove({ move });
           setIsAiMoving(false);
         }
       }

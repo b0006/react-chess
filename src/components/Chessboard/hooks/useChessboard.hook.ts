@@ -1,8 +1,8 @@
 import { useRef, useState, useEffect } from 'react';
-import { Chess, Move } from 'chess.js';
+import { Chess } from 'chess.js';
 import {
   BoardState,
-  PromotionPiece,
+  OnMoveProps,
   PromotionState,
   UseChessboardProps,
   UseChessboardReturn,
@@ -29,7 +29,7 @@ export const useChessboard = ({
     setBoardState(chessRef.current.board());
   };
 
-  const onMove = (move: Move | null, extendPromotion?: PromotionPiece) => {
+  const onMove = ({ move, extendPromotion }: OnMoveProps) => {
     if (!move) {
       return;
     }
