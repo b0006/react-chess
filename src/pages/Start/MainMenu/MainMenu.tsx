@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import { Button } from '../../../components/common/Button';
-import { GameOfflineSettings } from '../../../components/GameOfflineSettings';
 import styles from './MainMenu.module.scss';
 
 export const MainMenu: FC = () => {
@@ -15,7 +14,14 @@ export const MainMenu: FC = () => {
         text='Player VS player'
         theme='primary'
       />
-      <GameOfflineSettings />
+      <Button
+        classNameLink={styles.link}
+        className={styles.button}
+        href='/offline-lobby'
+        icon='desktop'
+        text='Player VS AI'
+        theme='primary'
+      />
       <Button
         classNameLink={styles.link}
         className={styles.button}
