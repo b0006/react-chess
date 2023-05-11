@@ -15,9 +15,13 @@ import { ReactComponent as DesktopIcon } from '../../../assets/common-icons/desk
 import { ReactComponent as SignInIcon } from '../../../assets/common-icons/sign-in.svg';
 import { ReactComponent as UserClockIcon } from '../../../assets/common-icons/user-clock.svg';
 import { ReactComponent as UserPlusIcon } from '../../../assets/common-icons/user-plus.svg';
-import { ReactComponent as ChevronDownicon } from '../../../assets/common-icons/chevronDown.svg';
-import { ReactComponent as Plusicon } from '../../../assets/common-icons/plus.svg';
-import { ReactComponent as Playicon } from '../../../assets/common-icons/play.svg';
+import { ReactComponent as ChevronDownIcon } from '../../../assets/common-icons/chevronDown.svg';
+import { ReactComponent as PlusIcon } from '../../../assets/common-icons/plus.svg';
+import { ReactComponent as PlayIcon } from '../../../assets/common-icons/play.svg';
+import { ReactComponent as RobotIcon } from '../../../assets/common-icons/robot.svg';
+import { ReactComponent as EyeOpenIcon } from '../../../assets/common-icons/eye-open.svg';
+import { ReactComponent as EyeCloseIcon } from '../../../assets/common-icons/eye-close.svg';
+import { ReactComponent as CrownIcon } from '../../../assets/common-icons/crown.svg';
 
 const Empty: FC = () => null;
 
@@ -38,7 +42,11 @@ export const ICON_LIST = {
   signIn: SignInIcon,
   userClock: UserClockIcon,
   userPlus: UserPlusIcon,
-  chevronDown: ChevronDownicon,
-  plus: Plusicon,
-  play: Playicon,
+  chevronDown: ChevronDownIcon,
+  plus: PlusIcon,
+  play: PlayIcon,
+  robot: RobotIcon,
+  eyeOpen: EyeOpenIcon,
+  eyeClose: EyeCloseIcon,
+  crown: CrownIcon,
 };
