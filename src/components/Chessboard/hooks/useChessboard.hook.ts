@@ -8,6 +8,7 @@ import {
   UseChessboardReturn,
 } from '../types';
 import { getPositionForCastlingPiece, isCastlingMove, setAnimationMove } from '../utils';
+import { useGameOver } from './useGameOver.hook';
 
 export const useChessboard = ({
   initStatus = {
@@ -39,8 +40,11 @@ export const useChessboard = ({
   });
   const [boardState, setBoardState] = useState<BoardState | null>(chessRef.current.board());
 
+  const { gameOverState } = useGameOver({ chessEngine: chessRef.current, boardState });
+
   const updateBoardState = () => {
     setBoardState(chessRef.current.board());
+    console.log('UPDATE', gameOverState);
     onMoveCallback?.({ fen: chessRef.current.fen(), pgn: chessRef.current.pgn() });
   };
 
@@ -169,6 +173,7 @@ export const useChessboard = ({
     boardElRef,
     boardState,
     promotionState,
+    gameOverState,
     setPromotionState,
     onUndoMove,
     onMove,

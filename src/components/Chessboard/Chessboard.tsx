@@ -6,19 +6,27 @@ import { VerticalSymbols } from './VerticalSymbols';
 import { CellTable } from './CellTable';
 import { PromotionModal } from './PromotionModal';
 import { StatusBar } from './StatusBar';
-import { useGameOver } from './hooks';
+import { INIT_GAME_OVER_STATE } from './hooks/useGameOver.hook';
 
 export const Chessboard = forwardRef<HTMLDivElement, ChessboardProps>(
   (
-    { boardState, chessEngine, promotionState, isEnemyMoving, myColor, setPromotionState, onMove },
+    {
+      boardState,
+      chessEngine,
+      promotionState,
+      isEnemyMoving,
+      gameOverState = INIT_GAME_OVER_STATE,
+      myColor,
+      setPromotionState,
+      onMove,
+    },
     ref,
   ) => {
-    const { gameOverText } = useGameOver({ chessEngine, boardState });
-
     const isRotate = myColor === 'b';
+    const isMoveDisabled = isEnemyMoving || gameOverState.isOnceOver;
 
     const innerOnMove = (options: OnMoveProps) => {
-      if (isEnemyMoving) {
+      if (isMoveDisabled) {
         return;
       }
 
@@ -34,7 +42,7 @@ export const Chessboard = forwardRef<HTMLDivElement, ChessboardProps>(
         <StatusBar
           isEnemyMoving={isEnemyMoving}
           chessEngine={chessEngine}
-          gameOverText={gameOverText}
+          gameOverText={gameOverState.label}
         />
         <div ref={ref} className={styles.chessboard}>
           <div className={styles.inner}>
@@ -42,7 +50,7 @@ export const Chessboard = forwardRef<HTMLDivElement, ChessboardProps>(
             <div className={styles.game}>
               <VerticalSymbols isRotate={isRotate} />
               <CellTable
-                isEnemyMoving={isEnemyMoving}
+                isEnemyMoving={isMoveDisabled}
                 boardState={boardState}
                 chessEngine={chessEngine}
                 isRotate={isRotate}

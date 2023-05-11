@@ -7,6 +7,7 @@ export const TestPage: FC = () => {
     boardElRef,
     boardState,
     promotionState,
+    gameOverState,
     setPromotionState,
     onMove,
     onUndoMove,
@@ -26,6 +27,7 @@ export const TestPage: FC = () => {
     <div>
       <Chessboard
         myColor='b'
+        gameOverState={gameOverState}
         chessEngine={chessEngine}
         boardState={boardState}
         ref={boardElRef}
