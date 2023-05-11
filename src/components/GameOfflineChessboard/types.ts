@@ -10,3 +10,8 @@ export interface UseAiEngineProps extends Pick<UseChessboardReturn, 'onMove'> {
 export interface UseApiHistory {
   viewParty: ChessParty;
 }
+
+export interface UseFinishPartyProps extends Pick<UseChessboardReturn, 'gameOverState'> {
+  viewParty: ChessParty;
+  updatePartyData: (partyData: Partial<ChessParty>) => void;
+}

@@ -12,8 +12,9 @@ const GAME_OVER_LABEL: Record<ChessGameOver, string> = {
 
 export const INIT_GAME_OVER_STATE: GameOverState = {
   label: '',
+  typeLabel: null,
   isOnceOver: false,
-  type: {
+  typeData: {
     checkmate: false,
     draw: false,
     insufficientMaterial: false,
@@ -38,22 +39,33 @@ export const useGameOver = ({ chessEngine, boardState }: UseGameOverProps) => {
       threefoldRepetition: chessEngine.in_threefold_repetition(),
     };
 
-    const gameOverLabel = Object.entries(gameOverStatus).reduce(
-      (str, [gameOverType, isGameOver]) => {
+    const gameOverResult = Object.entries(gameOverStatus).reduce(
+      (result, [gameOverType, isGameOver]) => {
         if (isGameOver) {
-          const separator = str ? '/' : '';
-          return `${str}${separator}${GAME_OVER_LABEL[gameOverType as ChessGameOver]}`;
+          const separatorLabel = result.label ? '/' : '';
+          const separatorType = result.typeLabel ? '/' : '';
+
+          return {
+            label: `${result.label}${separatorLabel}${
+              GAME_OVER_LABEL[gameOverType as ChessGameOver]
+            }`,
+            typeLabel: `${result.typeLabel}${separatorType}${gameOverType}`,
+          };
         }
 
-        return str;
+        return result;
       },
-      '',
+      {
+        label: '',
+        typeLabel: '',
+      },
     );
 
     setGameOverState({
-      label: gameOverLabel,
-      isOnceOver: Boolean(gameOverLabel),
-      type: gameOverStatus,
+      label: gameOverResult.label,
+      typeLabel: gameOverResult.typeLabel as ChessGameOver,
+      isOnceOver: Boolean(gameOverResult.label),
+      typeData: gameOverStatus,
     });
   }, [chessEngine, boardState]);
 

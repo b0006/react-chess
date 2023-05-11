@@ -29,9 +29,9 @@ export const router = createBrowserRouter(
       <Route path='/test' element={<TestPage />} />
       <Route path='/sign-in' element={<SignInPage />} />
       <Route path='/sign-up' element={<SignUpPage />} />
-      <Route path='/offline-lobby' element={<PrivateRoute />}>
-        <Route path='/offline-lobby' element={<OfflineLobbyPage />} />
-        <Route path='/offline-chess-game' element={<OfflineChessGamePage />} />
+      <Route element={<PrivateRoute />}>
+        <Route path='offline-lobby' element={<OfflineLobbyPage />} />
+        <Route path='offline-chess-game' element={<OfflineChessGamePage />} />
       </Route>
       <Route path='*' element={<div>Page not found</div>} />
     </Route>,

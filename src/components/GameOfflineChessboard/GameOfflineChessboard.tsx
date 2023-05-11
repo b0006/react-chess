@@ -4,11 +4,10 @@ import { partyStore } from '../../store';
 import { Chessboard, useChessboard } from '../Chessboard';
 import { useAiEngine } from './useAiEngine.hook';
 import { useApiHistory } from './useApiHistory.hook';
+import { useFinishParty } from './useFinishParty.hook';
 
 export const GameOfflineChessboard: FC = observer(() => {
-  const { viewParty } = partyStore;
-
-  // TODO: show loader update status
+  const { viewParty, updatePartyData } = partyStore;
   const { onMoveCallback } = useApiHistory({ viewParty });
 
   const {
@@ -28,6 +27,8 @@ export const GameOfflineChessboard: FC = observer(() => {
   });
 
   const { isAiMoving } = useAiEngine({ chessEngine, viewParty, onMove });
+
+  useFinishParty({ viewParty, gameOverState, updatePartyData });
 
   return (
     <div>
