@@ -18,8 +18,6 @@ export const useFinishParty = ({
 
   useEffect(() => {
     if (gameOverState.isOnceOver && !viewParty.resultParty) {
-      console.log('UPDATE', gameOverState);
-
       const updateData: Partial<ChessParty> = { resultParty: gameOverState.typeLabel };
 
       const execUpdate = async () => {
