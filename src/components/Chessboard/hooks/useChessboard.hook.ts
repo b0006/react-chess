@@ -20,7 +20,7 @@ export const useChessboard = ({
   onMoveCallback,
 }: UseChessboardProps): UseChessboardReturn => {
   const boardElRef = useRef<HTMLDivElement>(null);
-  const chessRef = useRef(new Chess(initStatus.fen));
+  const chessRef = useRef(new Chess(initStatus.fen || undefined));
   const moveTimeoutIdOneRef = useRef<NodeJS.Timeout | null>(null);
   const moveTimeoutIdTwoRef = useRef<NodeJS.Timeout | null>(null);
 

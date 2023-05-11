@@ -28,6 +28,7 @@ const getEnemyMoveByString = (stateChess: ChessInstance, bestMoveLine: string): 
 export const useAiEngine = ({ chessEngine, viewParty, onMove }: UseAiEngineProps) => {
   const [isAiMoving, setIsAiMoving] = useState(false);
 
+  const [wasInit, setWasInit] = useState(false);
   const engineRef = useRef<ChessEngine>();
   const isMyTurn = chessEngine.turn() === viewParty.myColor;
 
@@ -40,7 +41,7 @@ export const useAiEngine = ({ chessEngine, viewParty, onMove }: UseAiEngineProps
     setIsAiMoving(true);
     engineRef.current.postMessage(`position fen ${chessEngine.fen()}`);
     engineRef.current.postMessage(`go depth ${viewParty.difficult}`);
-  }, [viewParty.difficult]);
+  }, [chessEngine, viewParty.difficult]);
 
   useEffect(() => {
     if (!isMyTurn) {
@@ -71,6 +72,10 @@ export const useAiEngine = ({ chessEngine, viewParty, onMove }: UseAiEngineProps
         return;
       }
 
+      if (wasInit) {
+        return;
+      }
+
       const engine = window.STOCKFISH();
       engineRef.current = engine;
       engine.onmessage = onEngineEvent;
@@ -82,10 +87,12 @@ export const useAiEngine = ({ chessEngine, viewParty, onMove }: UseAiEngineProps
       if (viewParty.myColor === 'b') {
         engine.postMessage(`go depth ${viewParty.difficult}`);
       }
+
+      setWasInit(true);
     };
 
     loadEngine();
-  }, [chessEngine, viewParty.myColor, viewParty.difficult, onEngineEvent]);
+  }, [wasInit, chessEngine, viewParty.difficult, viewParty.myColor, onEngineEvent]);
 
   return { isAiMoving };
 };
