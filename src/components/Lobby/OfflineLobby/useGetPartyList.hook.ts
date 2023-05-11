@@ -6,7 +6,7 @@ import { partyStore } from '../../../store';
 import { ChessParty } from '../../../store/partyStore/types';
 
 export const useGetPartyList = () => {
-  const { setOfflinePartyList } = partyStore;
+  const { setPartyList } = partyStore;
 
   const { addNotification } = useNotification();
   const [isLoading, fetchPartyList] = useFetchDataApi<UnknownObject, ChessParty[]>(
@@ -26,12 +26,11 @@ export const useGetPartyList = () => {
         return;
       }
 
-      const offlinePartyList = response.filter((party) => party.isVersusAi);
-      setOfflinePartyList(offlinePartyList);
+      setPartyList(response);
     };
 
     getPartyList();
-  }, [addNotification, fetchPartyList, setOfflinePartyList]);
+  }, [addNotification, fetchPartyList, setPartyList]);
 
   return { isLoading };
 };

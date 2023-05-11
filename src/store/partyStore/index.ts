@@ -1,4 +1,4 @@
-import { action, makeAutoObservable, observable } from 'mobx';
+import { action, makeAutoObservable, observable, computed } from 'mobx';
 import { ChessParty } from './types';
 
 const initPartyData: ChessParty = {
@@ -24,21 +24,29 @@ const initPartyData: ChessParty = {
 };
 
 export class PartyStore {
-  public offlinePartyList: ChessParty[] = [];
-  public onlinePartyList: ChessParty[] = [];
+  public partyList: ChessParty[] = [];
   public viewParty: ChessParty = initPartyData;
 
   constructor() {
     makeAutoObservable(this, {
-      offlinePartyList: observable,
-      onlinePartyList: observable,
+      partyList: observable,
+      offlinePartyList: computed,
+      onlinePartyList: computed,
       startOfflineParty: action,
-      setOfflinePartyList: action,
+      setPartyList: action,
     });
   }
 
-  public setOfflinePartyList = (list: ChessParty[]) => {
-    this.offlinePartyList = list.map((party) => ({
+  get onlinePartyList() {
+    return this.partyList.filter((party) => !party.isVersusAi);
+  }
+
+  get offlinePartyList() {
+    return this.partyList.filter((party) => party.isVersusAi);
+  }
+
+  public setPartyList = (list: ChessParty[]) => {
+    this.partyList = list.map((party) => ({
       ...party,
       myColor: party.whitePlayer ? 'w' : 'b',
     }));
