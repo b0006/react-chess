@@ -8,3 +8,4 @@ export * from './SlideDownUp';
 export * from './Scrollbar';
 export * from './Notification';
 export * from './Input';
+export * from './Popup';
