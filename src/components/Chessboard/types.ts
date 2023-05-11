@@ -6,10 +6,20 @@ export type BoardState = Array<Array<BoardCell>>;
 
 export type PromotionPiece = Extract<PieceType, 'n' | 'b' | 'r' | 'q'>;
 
+export interface OnMoveCallback {
+  fen: string;
+  pgn: string;
+}
+
 export interface UseChessboardProps {
+  initStatus?: {
+    fen: string;
+    pgn: string;
+  };
   withAnimationPiece?: boolean;
   withAutopromotion?: boolean;
   autopromotionPiece?: PromotionPiece;
+  onMoveCallback?: (status: OnMoveCallback) => void;
 }
 
 export interface PromotionState {

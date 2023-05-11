@@ -40,7 +40,6 @@ export class PartyStore {
   public setOfflinePartyList = (list: ChessParty[]) => {
     this.offlinePartyList = list.map((party) => ({
       ...party,
-      // TODO: computed my color correctly
       myColor: party.whitePlayer ? 'w' : 'b',
     }));
   };
@@ -51,6 +50,14 @@ export class PartyStore {
       ...partyData,
       isVersusAi: true,
       isPlaying: true,
+    };
+  };
+
+  // TODO: maybe update item at list
+  public updatePartyData = (partyData: Partial<ChessParty>) => {
+    this.viewParty = {
+      ...this.viewParty,
+      ...partyData,
     };
   };
 }

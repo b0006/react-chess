@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react';
+import { FC, ReactNode, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 
 import { NotificationLayout } from '../NotificationLayout';
@@ -61,25 +61,31 @@ export const useNotification = (): {
 } => {
   const [state, dispatch] = useNotificationContext();
 
-  const hasAlready = (id: string): boolean => {
-    if (!state.list.length) {
-      return false;
-    }
+  const hasAlready = useCallback(
+    (id: string): boolean => {
+      if (!state.list.length) {
+        return false;
+      }
 
-    return !!state.list.filter((n) => n.id === id).length;
-  };
+      return !!state.list.filter((n) => n.id === id).length;
+    },
+    [state.list],
+  );
 
-  const add = (content: Content, options: Options = {}): string | undefined => {
-    const id = options.id ? options.id : generateUUIDv4();
+  const add = useCallback(
+    (content: Content, options: Options = {}): string | undefined => {
+      const id = options.id ? options.id : generateUUIDv4();
 
-    if (hasAlready(id)) {
-      return;
-    }
+      if (hasAlready(id)) {
+        return;
+      }
 
-    dispatch({ type: ACTIONS.add, payload: { content, id, ...options } });
+      dispatch({ type: ACTIONS.add, payload: { content, id, ...options } });
 
-    return id;
-  };
+      return id;
+    },
+    [dispatch, hasAlready],
+  );
 
   const remove = (id: string): void => {
     if (!hasAlready(id)) {

@@ -6,3 +6,7 @@ export interface UseAiEngineProps extends Pick<UseChessboardReturn, 'onMove'> {
   chessEngine: ChessInstance;
   viewParty: ChessParty;
 }
+
+export interface UseApiHistory {
+  viewParty: ChessParty;
+}

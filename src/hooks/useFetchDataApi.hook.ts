@@ -13,11 +13,11 @@ interface FetchReturn<T> {
 const useFetchDataApi = <T = UnknownObject, R = UnknownObject>(
   url: string,
   method: Method,
-): [boolean, (data?: T) => Promise<FetchReturn<R>>] => {
+): [boolean, (data?: T, dynamicUrl?: string) => Promise<FetchReturn<R>>] => {
   const [isLoading, setIsLoading] = useState(false);
 
   const fetchData = useCallback(
-    async (data?: T) => {
+    async (data?: T, dynamicUrl?: string) => {
       setIsLoading(true);
       const resultData: FetchReturn<R> = {
         error: null,
@@ -25,7 +25,7 @@ const useFetchDataApi = <T = UnknownObject, R = UnknownObject>(
       };
 
       try {
-        const response = await requests[method]<R, T>(url, data);
+        const response = await requests[method]<R, T>(dynamicUrl || url, data);
         if (response.status < 200 && response.status >= 300) {
           throw response.statusText;
         }

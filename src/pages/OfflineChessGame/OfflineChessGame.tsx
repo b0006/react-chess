@@ -12,7 +12,7 @@ export const OfflineChessGamePage: FC = observer(() => {
     if (!viewParty.isPlaying) {
       navigate('/');
     }
-  }, [viewParty.isPlaying]);
+  }, [navigate, viewParty.isPlaying]);
 
   return (
     <div>

@@ -10,14 +10,28 @@ import {
 import { getPositionForCastlingPiece, isCastlingMove, setAnimationMove } from '../utils';
 
 export const useChessboard = ({
+  initStatus = {
+    fen: '',
+    pgn: '',
+  },
   withAnimationPiece = true,
   withAutopromotion = true,
   autopromotionPiece = 'q',
+  onMoveCallback,
 }: UseChessboardProps): UseChessboardReturn => {
   const boardElRef = useRef<HTMLDivElement>(null);
-  const chessRef = useRef(new Chess());
+  const chessRef = useRef(new Chess(initStatus.fen));
   const moveTimeoutIdOneRef = useRef<NodeJS.Timeout | null>(null);
   const moveTimeoutIdTwoRef = useRef<NodeJS.Timeout | null>(null);
+
+  const [wasInit, setWasInit] = useState(false);
+
+  useEffect(() => {
+    if (initStatus.pgn && !wasInit) {
+      setWasInit(true);
+      chessRef.current.load_pgn(initStatus.pgn);
+    }
+  }, [initStatus.pgn, wasInit]);
 
   const [promotionState, setPromotionState] = useState<PromotionState>({
     isShownModal: false,
@@ -27,6 +41,7 @@ export const useChessboard = ({
 
   const updateBoardState = () => {
     setBoardState(chessRef.current.board());
+    onMoveCallback?.({ fen: chessRef.current.fen(), pgn: chessRef.current.pgn() });
   };
 
   const onMove = ({ move, extendPromotion }: OnMoveProps) => {

@@ -40,7 +40,7 @@ export const useAiEngine = ({ chessEngine, viewParty, onMove }: UseAiEngineProps
     setIsAiMoving(true);
     engineRef.current.postMessage(`position fen ${chessEngine.fen()}`);
     engineRef.current.postMessage(`go depth ${viewParty.difficult}`);
-  }, [viewParty.difficult, viewParty.myColor]);
+  }, [viewParty.difficult]);
 
   useEffect(() => {
     if (!isMyTurn) {
@@ -61,7 +61,7 @@ export const useAiEngine = ({ chessEngine, viewParty, onMove }: UseAiEngineProps
         }
       }
     },
-    [chessEngine],
+    [chessEngine, onMove],
   );
 
   useEffect(() => {
