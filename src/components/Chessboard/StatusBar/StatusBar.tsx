@@ -6,7 +6,7 @@ import { Container } from '../../Layout/Container';
 import styles from './StatusBar.module.scss';
 import { StatusBarProps } from './types';
 
-export const StatusBar: FC<StatusBarProps> = ({ isEnemyMoving, chessEngine }) => {
+export const StatusBar: FC<StatusBarProps> = ({ isEnemyMoving, chessEngine, gameOverText }) => {
   const historyMoves = chessEngine.history();
   const wrapperRef = useRef<HTMLDivElement | null>(null);
 
@@ -36,9 +36,11 @@ export const StatusBar: FC<StatusBarProps> = ({ isEnemyMoving, chessEngine }) =>
             </span>
           ))}
         </Scrollbar>
-        <div className={cn(styles.status, { [styles['status-show']]: isEnemyMoving })}>
+        <div
+          className={cn(styles.status, { [styles['status-show']]: isEnemyMoving || gameOverText })}
+        >
           {/* eslint-disable-next-line prettier/prettier */}
-          {'Waiting for the opponent\'s move...'}
+          {gameOverText || 'Waiting for the opponent\'s move...'}
         </div>
       </div>
     </Container>

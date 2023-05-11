@@ -6,12 +6,15 @@ import { VerticalSymbols } from './VerticalSymbols';
 import { CellTable } from './CellTable';
 import { PromotionModal } from './PromotionModal';
 import { StatusBar } from './StatusBar';
+import { useGameOver } from './hooks';
 
 export const Chessboard = forwardRef<HTMLDivElement, ChessboardProps>(
   (
     { boardState, chessEngine, promotionState, isEnemyMoving, myColor, setPromotionState, onMove },
     ref,
   ) => {
+    const { gameOverText } = useGameOver({ chessEngine, boardState });
+
     const isRotate = myColor === 'b';
 
     const innerOnMove = (options: OnMoveProps) => {
@@ -28,7 +31,11 @@ export const Chessboard = forwardRef<HTMLDivElement, ChessboardProps>(
 
     return (
       <>
-        <StatusBar isEnemyMoving={isEnemyMoving} chessEngine={chessEngine} />
+        <StatusBar
+          isEnemyMoving={isEnemyMoving}
+          chessEngine={chessEngine}
+          gameOverText={gameOverText}
+        />
         <div ref={ref} className={styles.chessboard}>
           <div className={styles.inner}>
             <HorizontalSymbols isRotate={isRotate} />

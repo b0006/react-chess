@@ -1,3 +1,5 @@
 import { ChessboardProps } from '../types';
 
-export type StatusBarProps = Pick<ChessboardProps, 'isEnemyMoving' | 'chessEngine'>;
+export interface StatusBarProps extends Pick<ChessboardProps, 'isEnemyMoving' | 'chessEngine'> {
+  gameOverText: string;
+}
