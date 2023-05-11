@@ -44,7 +44,6 @@ export const useChessboard = ({
 
   const updateBoardState = () => {
     setBoardState(chessRef.current.board());
-    console.log('UPDATE', gameOverState);
     onMoveCallback?.({ fen: chessRef.current.fen(), pgn: chessRef.current.pgn() });
   };
 
