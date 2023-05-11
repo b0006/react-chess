@@ -84,7 +84,7 @@ export const useAiEngine = ({ chessEngine, viewParty, onMove }: UseAiEngineProps
       engine.postMessage(`position fen ${chessEngine.fen()}`);
 
       // the first enemy move
-      if (viewParty.myColor === 'b') {
+      if (viewParty.myColor === 'b' && !isMyTurn) {
         engine.postMessage(`go depth ${viewParty.difficult}`);
       }
 
@@ -92,7 +92,7 @@ export const useAiEngine = ({ chessEngine, viewParty, onMove }: UseAiEngineProps
     };
 
     loadEngine();
-  }, [wasInit, chessEngine, viewParty.difficult, viewParty.myColor, onEngineEvent]);
+  }, [wasInit, isMyTurn, chessEngine, viewParty.difficult, viewParty.myColor, onEngineEvent]);
 
   return { isAiMoving };
 };
