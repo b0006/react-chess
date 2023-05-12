@@ -17,7 +17,12 @@ import { StartPage } from '../pages/Start';
 import { TestPage } from '../pages/Test';
 
 const PrivateRoute: FC = observer(() => {
-  const { userData } = profileStore;
+  const { userData, isInitLoading } = profileStore;
+
+  if (isInitLoading) {
+    // TODO: add loader
+    return <div>loading...</div>;
+  }
 
   return userData.isAuth ? <Outlet /> : <Navigate to='/sign-in' />;
 });

@@ -36,6 +36,7 @@ export class ProfileStore {
     });
 
     const token = localStorage.getItem(TOKEN_KEY);
+
     if (token) {
       this.token = token;
       setHeaderToken(token);
