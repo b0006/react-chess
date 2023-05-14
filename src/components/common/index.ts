@@ -9,3 +9,5 @@ export * from './Scrollbar';
 export * from './Notification';
 export * from './Input';
 export * from './Popup';
+export * from './Radio';
+export * from './Tag';
