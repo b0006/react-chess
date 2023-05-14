@@ -6,7 +6,7 @@
 }
 
 .modal-inner {
-  @media #{$screen-sm} {
+  @media #{$screen-md} {
     width: 480px;
   }
 }

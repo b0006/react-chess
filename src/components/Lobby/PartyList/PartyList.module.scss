@@ -41,6 +41,11 @@
   .info {
     display: flex;
     align-items: flex-start;
+    flex-direction: column;
+
+    @media #{$screen-md} {
+      flex-direction: row;
+    }
   }
 
   .players-wrapper {
@@ -68,15 +73,20 @@
     .icon-label {
       position: absolute;
       left: -8px;
-      top: -8px;
+      top: -18px;
       background-color: $c-primary-disabled;
       padding: 4px;
       border-radius: 8px;
+      font-size: 16px;
+
+      @media #{$screen-md} {
+        top: -8px;
+      }
     }
 
     .icon-winner {
       position: absolute;
-      top: -16px;
+      top: -18px;
       color: #FFD912;
       padding: 4px;
       border-radius: 8px;
@@ -84,15 +94,26 @@
       transform: translateX(-50%);
       display: inline-block;
       text-align: center;
-      width: 32px;
-      height: 32px;
+      width: 24px;
+      height: 24px;
       background-color: $c-primary;
+
+      @media #{$screen-md} {
+        top: -16px;
+        width: 32px;
+        height: 32px;
+      }
     }
   }
 
   .icon-player {
-    width: 76px;
-    height: 76px;
+    width: 34px;
+    height: 34px;
+
+    @media #{$screen-md} {
+      width: 76px;
+      height: 76px;
+    }
 
     &__black {
       color: $c-white;
@@ -111,6 +132,11 @@
   .status-block {
     display: flex;
     flex-direction: column;
+    margin-top: 12px;
+
+    @media #{$screen-md} {
+      margin-top: 0;
+    }
   }
 
   .status-item:not(:first-child) {

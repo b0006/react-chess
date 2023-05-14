@@ -54,7 +54,7 @@
     transform: scale(0.2, 0.2);
   }
 
-  @media #{$screen-sm} {
+  @media #{$screen-md} {
     top: 100px;
     width: 520px;
     margin: 0 auto;
