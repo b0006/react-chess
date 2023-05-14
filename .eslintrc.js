@@ -37,6 +37,7 @@ module.exports = {
         trailingComma: 'all',
         jsxSingleQuote: true,
         bracketSpacing: true,
+        endOfLine: 'auto',
       },
     ],
   },
