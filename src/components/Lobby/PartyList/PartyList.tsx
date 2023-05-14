@@ -2,12 +2,47 @@ import { FC } from 'react';
 import cn from 'classnames';
 import { observer } from 'mobx-react';
 import { profileStore } from '../../../store';
-import { Button, SvgIcon } from '../../common';
+import { ChessParty } from '../../../store/partyStore/types';
+import { Button, Filter, SvgIcon, useFilter, FilterItem } from '../../common';
 import { ICONS_DEFAULT } from '../../Chessboard/icons';
 import { PartyListProps } from './types';
 import styles from './PartyList.module.scss';
 
+const FILTER_LIST: FilterItem[] = [
+  { label: 'Active', value: 'active' },
+  { label: 'Game over', value: 'gameOver' },
+];
+
+const getViewList = (activeFilterList: string[], list: ChessParty[]) => {
+  if (activeFilterList.length === 0) {
+    return list;
+  }
+
+  const hasActiveFilter = activeFilterList.includes(FILTER_LIST[0].value);
+  const hasGameOverFilter = activeFilterList.includes(FILTER_LIST[1].value);
+
+  const filterList = list.reduce((result, party) => {
+    let isShowParty = false;
+
+    if (hasActiveFilter && !party.resultParty) {
+      isShowParty = true;
+    }
+
+    if (hasGameOverFilter && party.resultParty) {
+      isShowParty = true;
+    }
+
+    return isShowParty ? [...result, party] : result;
+  }, [] as ChessParty[]);
+
+  return filterList;
+};
+
 export const PartyList: FC<PartyListProps> = observer(({ list, onPartyStart }) => {
+  const { activeFilterList, onFilterChange } = useFilter({
+    initActiveFilter: [FILTER_LIST[0].value],
+  });
+
   const {
     userData: { profileData },
   } = profileStore;
@@ -16,11 +51,20 @@ export const PartyList: FC<PartyListProps> = observer(({ list, onPartyStart }) =
     onPartyStart(partyId);
   };
 
+  const viewList = getViewList(activeFilterList, list);
+
   return (
     <div>
-      <h3 className={styles.title}>PartyList</h3>
+      <h3 className={styles.title}>Party list</h3>
+      <Filter
+        className={styles.filter}
+        filterList={FILTER_LIST}
+        activeFilterList={activeFilterList}
+        onFilterChange={onFilterChange}
+      />
       <div className={styles.list}>
-        {list.map((party) => {
+        {viewList.length === 0 && <div>No parties</div>}
+        {viewList.map((party) => {
           const MyColorPawn = ICONS_DEFAULT[party.myColor].p;
           const isMyColorBlack = party.myColor === 'b';
 

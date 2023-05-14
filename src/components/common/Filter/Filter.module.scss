@@ -1,0 +1,68 @@
+@import 'src/assets/scss/utils';
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+
+  .item {
+    position: relative;
+    margin: 0;
+    padding: 16px 24px;
+    background-color: transparent;
+    transition: background-color 0.25s;
+    border: 2px solid $c-gray-s;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 24px;
+    color: $c-black;
+
+    &:not(:last-child) {
+      margin-right: -2px;
+    }
+
+    // &:not(:first-child) {
+    //   margin-right: -2px;
+    // }
+
+    &:first-child {
+      border-radius: 4px 0px 0px 4px;
+    }
+
+    &:last-child {
+      border-radius: 0px 4px 4px 0px;
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      z-index: 1;
+      border: 2px solid transparent;
+      transition: border-color 0.25s;
+      border-radius: inherit;
+    }
+
+    &:hover {
+      background-color: $c-gray-l;
+
+      &::before {
+        border-color: $c-gray-k;
+      }
+    }
+
+    &__active {
+      &::before {
+        border-color: $c-primary;
+      }
+
+      &:hover {
+        &::before {
+          border-color: $c-primary-hover;
+        }
+      }
+    }
+  }
+}

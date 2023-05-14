@@ -11,3 +11,4 @@ export * from './Input';
 export * from './Popup';
 export * from './Radio';
 export * from './Tag';
+export * from './Filter';
