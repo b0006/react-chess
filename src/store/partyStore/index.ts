@@ -38,11 +38,15 @@ export class PartyStore {
   }
 
   get onlinePartyList() {
-    return this.partyList.filter((party) => !party.isVersusAi);
+    return this.partyList
+      .filter((party) => !party.isVersusAi)
+      .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
   }
 
   get offlinePartyList() {
-    return this.partyList.filter((party) => party.isVersusAi);
+    return this.partyList
+      .filter((party) => party.isVersusAi)
+      .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
   }
 
   public setPartyList = (list: ChessParty[]) => {
