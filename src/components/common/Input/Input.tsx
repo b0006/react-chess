@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes, LegacyRef, FocusEvent, forwardRef, useState } from 'react';
+import { InputHTMLAttributes, LegacyRef, FocusEvent, forwardRef } from 'react';
 import cn from 'classnames';
 import { SvgIcon } from '../SvgIcon';
 import styles from './Input.module.scss';
@@ -26,21 +26,13 @@ export const Input = forwardRef((props: Props, ref?: LegacyRef<HTMLInputElement>
     ...rest
   } = props;
 
-  const [isLabelTop, setIsLabelTop] = useState(false);
-
   const onFocusInput = (event: FocusEvent<HTMLInputElement>): void => {
-    setIsLabelTop(true);
-
     if (onFocus) {
       onFocus(event);
     }
   };
 
   const onBlurInput = (event: FocusEvent<HTMLInputElement>): void => {
-    if (event.target.value === '') {
-      setIsLabelTop(false);
-    }
-
     if (onBlur) {
       onBlur(event);
     }
@@ -52,7 +44,6 @@ export const Input = forwardRef((props: Props, ref?: LegacyRef<HTMLInputElement>
         {label && (
           <span
             className={cn(styles.label, {
-              [styles.label_focus]: isLabelTop || value,
               [styles.label_disabled]: disabled,
             })}
           >

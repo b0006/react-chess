@@ -16,13 +16,17 @@
   padding: 16px 46px 4px 16px;
   border: 1px solid $c-gray;
   background-color: $c-white;
-  min-height: 56px;
+  min-height: 48px;
   font-size: 16px;
   line-height: 24px;
   color: $c-black;
   border-radius: 4px;
   transition: background-color 0.25s;
   width: 100%;
+
+  @media #{$screen-md} {
+    min-height: 56px;
+  }
 
   &::placeholder {
     opacity: 0;
@@ -60,18 +64,12 @@
 .label {
   position: absolute;
   left: 16px;
-  top: 50%;
+  top: 25%;
   transform: translateY(-50%);
-  font-size: 16px;
-  line-height: 24px;
+  font-size: 13px;
+  line-height: 20px;
   transition: font-size 0.25s, top 0.25s;
   color: $c-gray;
-
-  &_focus {
-    font-size: 13px;
-    line-height: 20px;
-    top: 25%;
-  }
 
   &_disabled {
     cursor: not-allowed;
