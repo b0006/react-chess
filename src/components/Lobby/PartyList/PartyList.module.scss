@@ -25,6 +25,10 @@
       background-color: $c-gray-l;
     }
 
+    &-label {
+      margin-right: 8px;
+    }
+
     &:hover {
       border-color: $c-primary;
     }
@@ -34,8 +38,14 @@
     }
   }
 
+  .info {
+    display: flex;
+    align-items: flex-start;
+  }
+
   .players-wrapper {
     display: flex;
+    margin-right: 12px;
   }
 
   .icon-wrapper {
@@ -92,5 +102,18 @@
   .buttons-wrapper {
     display: flex;
     flex-direction: row;
+
+    .button-item:not(:first-child) {
+      margin-left: 8px;
+    }
+  }
+
+  .status-block {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .status-item:not(:first-child) {
+    margin-top: 8px;
   }
 }

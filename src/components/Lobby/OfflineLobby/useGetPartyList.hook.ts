@@ -6,12 +6,17 @@ import { partyStore } from '../../../store';
 import { ChessParty } from '../../../store/partyStore/types';
 
 export const useGetPartyList = () => {
-  const { setPartyList } = partyStore;
+  const { setPartyList, removePartyById } = partyStore;
 
   const { addNotification } = useNotification();
-  const [isLoading, fetchPartyList] = useFetchDataApi<UnknownObject, ChessParty[]>(
+  const [isFetchingList, fetchPartyList] = useFetchDataApi<UnknownObject, ChessParty[]>(
     '/api/chess/profile',
     'GET',
+  );
+
+  const [isRemoving, fetchRemoveParty] = useFetchDataApi<UnknownObject, { status: boolean }>(
+    '',
+    'DELETE',
   );
 
   useEffect(() => {
@@ -32,5 +37,19 @@ export const useGetPartyList = () => {
     getPartyList();
   }, [addNotification, fetchPartyList, setPartyList]);
 
-  return { isLoading };
+  const onRemoveParty = async (partyId: string) => {
+    const { error, response } = await fetchRemoveParty(undefined, `/api/chess/${partyId}`);
+
+    if (error || !response?.status) {
+      addNotification(
+        { title: 'Error', description: error?.toString() || 'Failed fetch party list' },
+        { appearance: 'error' },
+      );
+      return;
+    }
+
+    removePartyById(partyId);
+  };
+
+  return { isLoading: isFetchingList || isRemoving, onRemoveParty };
 };

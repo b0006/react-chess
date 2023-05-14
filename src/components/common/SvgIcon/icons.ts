@@ -22,6 +22,7 @@ import { ReactComponent as RobotIcon } from '../../../assets/common-icons/robot.
 import { ReactComponent as EyeOpenIcon } from '../../../assets/common-icons/eye-open.svg';
 import { ReactComponent as EyeCloseIcon } from '../../../assets/common-icons/eye-close.svg';
 import { ReactComponent as CrownIcon } from '../../../assets/common-icons/crown.svg';
+import { ReactComponent as DeleteIcon } from '../../../assets/common-icons/delete.svg';
 
 const Empty: FC = () => null;
 
@@ -49,4 +50,5 @@ export const ICON_LIST = {
   eyeOpen: EyeOpenIcon,
   eyeClose: EyeCloseIcon,
   crown: CrownIcon,
+  delete: DeleteIcon,
 };

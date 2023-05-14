@@ -13,7 +13,14 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /** Кнопка в виде круга (только с иконкой) */
   isCircle?: boolean;
   /** Стиль кнопки */
-  theme?: 'primary' | 'primary-white' | 'secondary' | 'secondary-white' | 'flat' | 'flat-white';
+  theme?:
+    | 'primary'
+    | 'primary-white'
+    | 'secondary'
+    | 'secondary-white'
+    | 'flat'
+    | 'flat-white'
+    | 'danger';
   /** Кнопка в виде ссылки */
   href?: string;
   /** Класс для ссылки */

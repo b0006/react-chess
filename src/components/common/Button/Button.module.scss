@@ -3,7 +3,6 @@
 .button {
   position: relative;
   cursor: pointer;
-  border: none;
   background-color: transparent;
   font-size: 16px;
   transition: background-color 0.25s;
@@ -44,6 +43,32 @@
   
   &_secondary {
     border: 1px solid $c-primary;
+  }
+
+  &_danger {
+    background-color: $c-red-super;
+    color: $c-white;
+
+    &:hover {
+      background-color: $c-red;
+    }
+
+    &:active {
+      background-color: $c-red-active;
+    }
+
+    &:focus-visible {
+      box-shadow: 0 0 0 2px $c-black inset;
+    }
+
+    &:disabled {
+      background-color: $c-red-disabled;
+    
+      &:hover, &:active, &:focus-visible {
+        background-color: $c-red-disabled;
+        border: 1px solid transparent;
+      }
+    }
   }
   
   &_secondary, &_flat {

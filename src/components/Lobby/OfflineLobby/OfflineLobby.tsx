@@ -14,7 +14,7 @@ export const OfflineLobby: FC = observer(() => {
   const { offlinePartyList, startOfflineParty } = partyStore;
   const [isShownCreateModal, setIsShownCreateModal] = useState(false);
 
-  const { isLoading } = useGetPartyList();
+  const { isLoading, onRemoveParty } = useGetPartyList();
 
   const onPartyStart = (partyId: string) => {
     const [partyData] = offlinePartyList.filter((party) => party.id === partyId);
@@ -27,18 +27,19 @@ export const OfflineLobby: FC = observer(() => {
       <Container>
         {/* TODO: loader */}
         {isLoading && <div>Loading...</div>}
-        {!isLoading && (
-          <>
-            <Button
-              className={styles['create-button']}
-              icon='plus'
-              text='Create a party'
-              disabled={isLoading}
-              onClick={() => setIsShownCreateModal(true)}
-            />
-            <PartyList list={offlinePartyList} onPartyStart={onPartyStart} />
-          </>
-        )}
+        <Button
+          className={styles['create-button']}
+          icon='plus'
+          text='Create a party'
+          disabled={isLoading}
+          onClick={() => setIsShownCreateModal(true)}
+        />
+        <PartyList
+          list={offlinePartyList}
+          isDisabled={isLoading}
+          onPartyStart={onPartyStart}
+          onRemoveParty={onRemoveParty}
+        />
       </Container>
       {isShownCreateModal && <GameOfflineSettings onClose={() => setIsShownCreateModal(false)} />}
     </>

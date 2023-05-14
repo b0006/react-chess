@@ -62,3 +62,18 @@ export interface ChessEngine {
   postMessage: (line: string) => void;
   onmessage: (event: string) => void;
 }
+
+export interface DificultItem {
+  label: string;
+  value: number;
+}
+
+export interface ColorItem {
+  label: string;
+  value: PieceColor;
+}
+
+export interface AutoPromotionItem {
+  label: string;
+  value: PromotionPiece;
+}

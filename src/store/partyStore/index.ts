@@ -34,6 +34,7 @@ export class PartyStore {
       onlinePartyList: computed,
       startOfflineParty: action,
       setPartyList: action,
+      removePartyById: action,
     });
   }
 
@@ -54,6 +55,10 @@ export class PartyStore {
       ...party,
       myColor: party.whitePlayer ? 'w' : 'b',
     }));
+  };
+
+  public removePartyById = (partyId: string) => {
+    this.partyList = this.partyList.filter((party) => party.id !== partyId);
   };
 
   public startOfflineParty = (partyData: ChessParty) => {

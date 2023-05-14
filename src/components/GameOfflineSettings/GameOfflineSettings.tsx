@@ -7,37 +7,9 @@ import { partyStore } from '../../store';
 import { ChessParty } from '../../store/partyStore/types';
 import { useFetchDataApi } from '../../hooks';
 import { Button, ModalLayout, Switcher, Select, useNotification } from '../common';
-import {
-  ColorItem,
-  DificultItem,
-  AutoPromotionItem,
-  FormFields,
-  GameOfflineSettingsProps,
-} from './types';
+import { AI_DIFFICULT, COLOR_LIST, PROMOTION_PIECE } from '../Chessboard/constants';
+import { FormFields, GameOfflineSettingsProps } from './types';
 import styles from './GameOfflineSettings.module.scss';
-
-const PROMOTION_PIECE: AutoPromotionItem[] = [
-  { label: 'Queen', value: 'q' },
-  { label: 'Bishop', value: 'b' },
-  { label: 'Knight', value: 'n' },
-  { label: 'Rook', value: 'r' },
-];
-
-const AI_DIFFICULT: DificultItem[] = [
-  { label: '800 (Easy)', value: 1 },
-  { label: '1000', value: 3 },
-  { label: '1200', value: 5 },
-  { label: '1400', value: 7 },
-  { label: '1600', value: 9 },
-  { label: '1800', value: 11 },
-  { label: '2000', value: 13 },
-  { label: '2200 (Hard)', value: 15 },
-];
-
-const COLOR_LIST: ColorItem[] = [
-  { label: 'White', value: 'w' },
-  { label: 'Black', value: 'b' },
-];
 
 export const GameOfflineSettings: FC<GameOfflineSettingsProps> = observer(({ onClose }) => {
   const { addNotification } = useNotification();

@@ -17,6 +17,10 @@ const requests = {
     return axios.post(path, data, { timeout });
   },
 
+  DELETE<R = UnknownObject, T = UnknownObject>(path: string, data?: T): Promise<AxiosResponse<R>> {
+    return axios.delete(path, { data, timeout });
+  },
+
   PUT<R = UnknownObject, T = UnknownObject>(path: string, data?: T): Promise<AxiosResponse<R>> {
     return axios.put(path, data, { timeout });
   },

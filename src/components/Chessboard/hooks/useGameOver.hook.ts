@@ -1,14 +1,7 @@
 import { useEffect, useState } from 'react';
 import { ChessGameOver } from '../../../store/partyStore/types';
+import { GAME_OVER_LABEL } from '../constants';
 import { GameOverState, GameOverTypes, UseGameOverProps } from './types';
-
-const GAME_OVER_LABEL: Record<ChessGameOver, string> = {
-  checkmate: 'Checkmate',
-  draw: 'Draw',
-  insufficientMaterial: 'Insufficient material',
-  stalemate: 'Stalemate',
-  threefoldRepetition: 'Threefold repetition',
-};
 
 export const INIT_GAME_OVER_STATE: GameOverState = {
   label: '',
