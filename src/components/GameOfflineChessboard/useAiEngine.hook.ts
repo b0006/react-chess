@@ -1,7 +1,8 @@
 import { useEffect, useCallback, useRef, useState } from 'react';
 import { ChessInstance, Move } from 'chess.js';
-import { ChessEngine, PromotionPiece } from '../Chessboard';
+import { PromotionPiece } from '../Chessboard';
 import { UseAiEngineProps } from './types';
+import { workerScript } from './worker-ai';
 
 const getEnemyMoveByString = (stateChess: ChessInstance, bestMoveLine: string): Move | null => {
   const bestMove = bestMoveLine.substring(0, 4);
@@ -29,18 +30,17 @@ export const useAiEngine = ({ chessEngine, viewParty, onMove }: UseAiEngineProps
   const [isAiMoving, setIsAiMoving] = useState(false);
 
   const [wasInit, setWasInit] = useState(false);
-  const engineRef = useRef<ChessEngine>();
+  const workerAiRef = useRef<Worker>();
   const isMyTurn = chessEngine.turn() === viewParty.myColor;
 
   const startEnemyMove = useCallback(() => {
-    if (!engineRef.current || !chessEngine) {
+    if (!workerAiRef.current || !chessEngine) {
       console.error('Error AI move');
       return;
     }
 
     setIsAiMoving(true);
-    engineRef.current.postMessage(`position fen ${chessEngine.fen()}`);
-    engineRef.current.postMessage(`go depth ${viewParty.difficult}`);
+    workerAiRef.current.postMessage([chessEngine.fen(), viewParty.difficult]);
   }, [chessEngine, viewParty.difficult]);
 
   useEffect(() => {
@@ -48,22 +48,6 @@ export const useAiEngine = ({ chessEngine, viewParty, onMove }: UseAiEngineProps
       startEnemyMove();
     }
   }, [isMyTurn, startEnemyMove]);
-
-  const onEngineEvent = useCallback(
-    (event: unknown) => {
-      window.console.log('STOCKFISH event', event);
-
-      if (typeof event === 'string') {
-        const [name, value]: string[] = event.split(' ');
-        if (name === 'bestmove' && value) {
-          const move = getEnemyMoveByString(chessEngine, value);
-          onMove({ move });
-          setIsAiMoving(false);
-        }
-      }
-    },
-    [chessEngine, onMove],
-  );
 
   useEffect(() => {
     const loadEngine = () => {
@@ -76,23 +60,37 @@ export const useAiEngine = ({ chessEngine, viewParty, onMove }: UseAiEngineProps
         return;
       }
 
-      const engine = window.STOCKFISH();
-      engineRef.current = engine;
-      engine.onmessage = onEngineEvent;
+      const onWorkerMessgae = (event: MessageEvent<string>) => {
+        try {
+          const resultAi = JSON.parse(event.data);
+          if (resultAi.bestMoveLine) {
+            const move = getEnemyMoveByString(chessEngine, resultAi.bestMoveLine);
+            onMove({ move });
+            setIsAiMoving(false);
+          }
+        } catch (err: unknown) {
+          // nothing (it is not error)
+        }
+      };
 
-      engine.postMessage('ucinewgame');
-      engine.postMessage(`position fen ${chessEngine.fen()}`);
+      workerAiRef.current = new Worker(workerScript);
+      workerAiRef.current.addEventListener('message', onWorkerMessgae);
 
       // the first enemy move
       if (viewParty.myColor === 'b' && !isMyTurn) {
-        engine.postMessage(`go depth ${viewParty.difficult}`);
+        workerAiRef.current.postMessage([chessEngine.fen(), viewParty.difficult]);
       }
 
       setWasInit(true);
+
+      return () => {
+        workerAiRef.current?.removeEventListener('message', onWorkerMessgae);
+        workerAiRef.current?.terminate();
+      };
     };
 
     loadEngine();
-  }, [wasInit, isMyTurn, chessEngine, viewParty.difficult, viewParty.myColor, onEngineEvent]);
+  }, [wasInit, isMyTurn, chessEngine, viewParty.difficult, viewParty.myColor, onMove]);
 
   return { isAiMoving };
 };

@@ -6,4 +6,4 @@ declare global {
   }
 }
 
-let STOCKFISH = window.STOCKFISH; 
+const STOCKFISH = window.STOCKFISH;
