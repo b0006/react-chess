@@ -1,16 +1,16 @@
 import { useCallback } from 'react';
-import { useObserver } from 'mobx-react';
-import { wsStore } from '../store';
-import { WSMessage } from '../store/wsStore/types';
+import { WS, WSMessage } from '../store/wsStore/types';
+
+interface UseWSActions {
+  ws: WS | null;
+}
 
 interface UseWsActionsReturn {
   sendWsMsg: (event: string, message: WSMessage) => void;
   listenWsMsg: (event: string, callback: (message: WSMessage) => void) => void;
 }
 
-const useWSActions = (): UseWsActionsReturn => {
-  const ws = useObserver(() => wsStore.ws);
-
+const useWSActions = ({ ws }: UseWSActions): UseWsActionsReturn => {
   const sendWsMsg = (event: string, message: WSMessage) => {
     ws?.emit(event, JSON.stringify(message));
   };

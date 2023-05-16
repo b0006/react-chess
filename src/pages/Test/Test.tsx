@@ -1,13 +1,18 @@
 import { FC, useEffect } from 'react';
+import { observer } from 'mobx-react';
 import { Chessboard, useChessboard } from '../../components/Chessboard';
 import { Button } from '../../components/common';
 import { useWSActions, useWSConnection } from '../../hooks';
+import { profileStore, wsStore } from '../../store';
 
 const WS_EVENT_TEST_NAME = 'userTest';
 
-export const TestPage: FC = () => {
-  useWSConnection();
-  const { sendWsMsg, listenWsMsg } = useWSActions();
+export const TestPage: FC = observer(() => {
+  const { token } = profileStore;
+  const { ws, initConnection } = wsStore;
+  useWSConnection({ authToken: token, initConnection });
+
+  const { sendWsMsg, listenWsMsg } = useWSActions({ ws });
 
   useEffect(() => {
     listenWsMsg(WS_EVENT_TEST_NAME, (message) => {
@@ -56,4 +61,4 @@ export const TestPage: FC = () => {
       />
     </div>
   );
-};
+});
