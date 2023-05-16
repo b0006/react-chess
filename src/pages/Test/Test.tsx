@@ -1,7 +1,20 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { Chessboard, useChessboard } from '../../components/Chessboard';
+import { Button } from '../../components/common';
+import { useWSActions, useWSConnection } from '../../hooks';
+
+const WS_EVENT_TEST_NAME = 'userTest';
 
 export const TestPage: FC = () => {
+  useWSConnection();
+  const { sendWsMsg, listenWsMsg } = useWSActions();
+
+  useEffect(() => {
+    listenWsMsg(WS_EVENT_TEST_NAME, (message) => {
+      console.log('FROM SERVER', message);
+    });
+  }, [listenWsMsg]);
+
   const {
     chessEngine,
     boardElRef,
@@ -37,6 +50,10 @@ export const TestPage: FC = () => {
       />
       <button onClick={onClick}>Random move</button>
       <button onClick={onUndoMove}>Undo move</button>
+      <Button
+        text='Send test ws'
+        onClick={() => sendWsMsg(WS_EVENT_TEST_NAME, { type: 'cc', data: 'dd' })}
+      />
     </div>
   );
 };
