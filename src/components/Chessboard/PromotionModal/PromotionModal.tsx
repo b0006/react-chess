@@ -1,6 +1,6 @@
 import { PieceColor } from 'chess.js';
 import { FC } from 'react';
-import { ModalLayout } from '../../common/ModalLyaout';
+import { ModalLayout } from '../../common/ModalLayout';
 import { ICONS_DEFAULT } from '../icons';
 import { PromotionPiece } from '../types';
 import { PromotionModalProps } from './types';

@@ -35,7 +35,7 @@ export const useAiEngine = ({ chessEngine, viewParty, onMove }: UseAiEngineProps
 
   const startEnemyMove = useCallback(() => {
     if (!workerAiRef.current || !chessEngine) {
-      console.error('Error AI move');
+      window.console.error('Error AI move');
       return;
     }
 
@@ -60,7 +60,7 @@ export const useAiEngine = ({ chessEngine, viewParty, onMove }: UseAiEngineProps
         return;
       }
 
-      const onWorkerMessgae = (event: MessageEvent<string>) => {
+      const onWorkerMessage = (event: MessageEvent<string>) => {
         try {
           const resultAi = JSON.parse(event.data);
           if (resultAi.bestMoveLine) {
@@ -74,7 +74,7 @@ export const useAiEngine = ({ chessEngine, viewParty, onMove }: UseAiEngineProps
       };
 
       workerAiRef.current = new Worker(workerScript);
-      workerAiRef.current.addEventListener('message', onWorkerMessgae);
+      workerAiRef.current.addEventListener('message', onWorkerMessage);
 
       // the first enemy move
       if (viewParty.myColor === 'b' && !isMyTurn) {
@@ -84,7 +84,7 @@ export const useAiEngine = ({ chessEngine, viewParty, onMove }: UseAiEngineProps
       setWasInit(true);
 
       return () => {
-        workerAiRef.current?.removeEventListener('message', onWorkerMessgae);
+        workerAiRef.current?.removeEventListener('message', onWorkerMessage);
         workerAiRef.current?.terminate();
       };
     };

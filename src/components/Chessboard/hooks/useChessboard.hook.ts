@@ -66,7 +66,7 @@ export const useChessboard = ({
     });
 
     if (!moved) {
-      console.error('Move error:', { nextMove: move });
+      window.console.error('Move error:', { nextMove: move });
       return;
     }
 
@@ -107,7 +107,7 @@ export const useChessboard = ({
     const lastMove = historyMoveList[historyMoveList.length - 1];
 
     if (!lastMove) {
-      console.error('Error undo move');
+      window.console.error('Error undo move');
       return;
     }
 

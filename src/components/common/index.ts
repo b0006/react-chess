@@ -1,6 +1,6 @@
 export * from './Button';
 export * from './Checkbox';
-export * from './ModalLyaout';
+export * from './ModalLayout';
 export * from './SvgIcon';
 export * from './Switcher';
 export * from './Select';

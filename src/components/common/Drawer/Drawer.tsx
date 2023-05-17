@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { ClientOnlyPortal } from '../ModalLyaout/ClientOnlyPortal';
+import { ClientOnlyPortal } from '../ModalLayout/ClientOnlyPortal';
 import { DrawerProps } from './types';
 
 export const Drawer: FC<DrawerProps> = ({ portalTargetSelector, children }) => {

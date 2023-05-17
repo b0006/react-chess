@@ -1,6 +1,6 @@
 import React from 'react';
 import cn from 'classnames';
-import { ModalLayout } from '../ModalLyaout';
+import { ModalLayout } from '../ModalLayout';
 import { SvgIcon, ICON_LIST } from '../SvgIcon';
 import { Button } from '../Button';
 import { Appearance, PopupProps } from './types';

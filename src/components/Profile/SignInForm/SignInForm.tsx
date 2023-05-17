@@ -19,19 +19,19 @@ export const SignInForm: FC = () => {
   } = useForm<FormFields>();
 
   const { addNotification } = useNotification();
-  const [isLoading, signInRequst] = useFetchDataApi<FormFields, SignInResponse>(
+  const [isLoading, signInRequest] = useFetchDataApi<FormFields, SignInResponse>(
     '/auth/sign-in/',
     'POST',
   );
 
   const onSubmit = async (data: FormFields): Promise<void> => {
-    const { error, response } = await signInRequst(data);
+    const { error, response } = await signInRequest(data);
 
     if (error || !response) {
-      const descriptionText = error || 'Попробуйте еще раз';
+      const descriptionText = error || 'Try again, please';
 
       addNotification(
-        { title: 'Ошибка', description: descriptionText },
+        { title: 'Error', description: descriptionText },
         { id: descriptionText, appearance: 'error' },
       );
       return;

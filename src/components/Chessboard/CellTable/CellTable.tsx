@@ -21,16 +21,16 @@ export const CellTable: FC<CellTableProps> = ({
     ? [...boardState].reverse().map((row) => [...row].reverse())
     : boardState;
 
-  const [posibleMoves, setPosibleMoves] = useState<Record<string, Move>>({});
+  const [possibleMoves, setPossibleMoves] = useState<Record<string, Move>>({});
 
-  const resetPosibleMoves = () => setPosibleMoves({});
+  const resetPossibleMoves = () => setPossibleMoves({});
 
-  useClickOutside(boardElRef, resetPosibleMoves);
+  useClickOutside(boardElRef, resetPossibleMoves);
 
-  // clear posible moves after board state updated
+  // clear possible moves after board state updated
   useEffect(() => {
     if (boardState) {
-      resetPosibleMoves();
+      resetPossibleMoves();
     }
   }, [boardState]);
 
@@ -48,13 +48,13 @@ export const CellTable: FC<CellTableProps> = ({
       {} as Record<string, Move>,
     );
 
-    if (!cellItem && !posibleMoves[squareId]) {
-      setPosibleMoves({});
+    if (!cellItem && !possibleMoves[squareId]) {
+      setPossibleMoves({});
       return;
     }
 
-    onMove?.({ move: posibleMoves[squareId] });
-    setPosibleMoves(movesData);
+    onMove?.({ move: possibleMoves[squareId] });
+    setPossibleMoves(movesData);
   };
 
   const onKeyDownCellInner =
@@ -98,7 +98,7 @@ export const CellTable: FC<CellTableProps> = ({
                 className={cn(styles.cell, {
                   [styles.cell__light]: isLightCell,
                   [styles.cell__dark]: !isLightCell,
-                  [styles.cell__move]: posibleMoves[squareId],
+                  [styles.cell__move]: possibleMoves[squareId],
                 })}
               >
                 {Icon && <Icon className={styles.icon} />}

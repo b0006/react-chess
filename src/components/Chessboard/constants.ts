@@ -1,5 +1,5 @@
 import { ChessGameOver } from '../../store/partyStore/types';
-import { AutoPromotionItem, ColorItem, DificultItem } from './types';
+import { AutoPromotionItem, ColorItem, DifficultItem } from './types';
 
 export const DIGIT_LIST = ['1', '2', '3', '4', '5', '6', '7', '8'].reverse();
 export const SYMBOL_LIST = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
@@ -11,7 +11,7 @@ export const PROMOTION_PIECE: AutoPromotionItem[] = [
   { label: 'Rook', value: 'r' },
 ];
 
-export const AI_DIFFICULT: DificultItem[] = [
+export const AI_DIFFICULT: DifficultItem[] = [
   { label: '800 (Easy)', value: 1 },
   { label: '1000', value: 3 },
   { label: '1200', value: 5 },

@@ -63,7 +63,7 @@ export interface ChessEngine {
   onmessage: (event: string) => void;
 }
 
-export interface DificultItem {
+export interface DifficultItem {
   label: string;
   value: number;
 }

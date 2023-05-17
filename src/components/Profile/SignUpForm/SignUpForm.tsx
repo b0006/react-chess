@@ -1,11 +1,15 @@
 import { FC, useRef } from 'react';
 import { useForm } from 'react-hook-form';
-import { Input, Button } from '../../common';
+import { useNavigate } from 'react-router-dom';
+import { Input, Button, useNotification } from '../../common';
+import { useFetchDataApi } from '../../../hooks';
 import { FormLayout } from '../FormLayout';
 import styles from './SignUpForm.module.scss';
 import { FormFields } from './types';
 
 export const SignUpForm: FC = () => {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -16,19 +20,31 @@ export const SignUpForm: FC = () => {
   const password = useRef('');
   password.current = watch('password', '');
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { addNotification } = useNotification();
+  const [isLoading, signUpRequest] = useFetchDataApi<FormFields>('/auth/sign-up/', 'POST');
+
   const onSubmit = async (data: FormFields): Promise<void> => {
-    // const { error, response } = await signUpRequst(data);
-    // if (error || !response) {
-    //   addNotification({ title: 'Ошибка', description: error || 'Попробуйте еще раз' }, { appearance: 'error' });
-    //   return;
-    // }
-    // setProfileData(response);
-    // history.push('/');
+    const { error, response } = await signUpRequest(data);
+
+    if (error || !response) {
+      const descriptionText = error || 'Try again, please';
+
+      addNotification(
+        { title: 'Error', description: descriptionText },
+        { id: descriptionText, appearance: 'error' },
+      );
+      return;
+    }
+
+    addNotification(
+      { title: 'Success', description: 'User has been created' },
+      { id: 'sign-up-success', appearance: 'success' },
+    );
+    navigate('/sign-in');
   };
 
   return (
-    <FormLayout isLoading={false}>
+    <FormLayout isLoading={isLoading}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <h1 className={styles.title}>Sign up</h1>
         <Input

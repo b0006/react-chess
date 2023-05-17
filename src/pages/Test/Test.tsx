@@ -15,7 +15,7 @@ export const TestPage: FC = observer(() => {
 
   useEffect(() => {
     listenWsMsg(WS_EVENT_TEST_NAME, (message) => {
-      console.log('FROM SERVER', message);
+      window.console.log('FROM SERVER', message);
     });
   }, [listenWsMsg]);
 
