@@ -1,7 +1,6 @@
 import { Socket } from 'socket.io-client';
 
 export interface WSMessage {
-  type: string;
   data?: string;
 }
 

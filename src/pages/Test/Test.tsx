@@ -4,7 +4,13 @@ import { Chessboard, useChessboard } from '../../components/Chessboard';
 import { Button } from '../../components/common';
 import { profileStore } from '../../store';
 
-const WS_EVENT_TEST_NAME = 'userTest';
+const WS_USER_EVENT = {
+  getPartyList: 'getPartyList',
+};
+
+const WS_ERROR_EVENT = {
+  initConnection: 'initConnection',
+};
 
 export const TestPage: FC = observer(() => {
   const { initWsConnection, listenWsMsg, sendWsMsg } = profileStore;
@@ -14,7 +20,13 @@ export const TestPage: FC = observer(() => {
   }, [initWsConnection]);
 
   useEffect(() => {
-    listenWsMsg(WS_EVENT_TEST_NAME, (message) => {
+    listenWsMsg(WS_ERROR_EVENT.initConnection, (message) => {
+      window.console.log('ERROR FROM SERVER', message);
+    });
+  }, [listenWsMsg]);
+
+  useEffect(() => {
+    listenWsMsg(WS_USER_EVENT.getPartyList, (message) => {
       window.console.log('FROM SERVER', message);
     });
   }, [listenWsMsg]);
@@ -56,7 +68,7 @@ export const TestPage: FC = observer(() => {
       <button onClick={onUndoMove}>Undo move</button>
       <Button
         text='Send test ws'
-        onClick={() => sendWsMsg(WS_EVENT_TEST_NAME, { type: 'cc', data: 'dd' })}
+        onClick={() => sendWsMsg(WS_USER_EVENT.getPartyList, { data: 'dd' })}
       />
     </div>
   );
