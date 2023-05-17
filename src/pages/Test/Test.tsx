@@ -2,17 +2,16 @@ import { FC, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import { Chessboard, useChessboard } from '../../components/Chessboard';
 import { Button } from '../../components/common';
-import { useWSActions, useWSConnection } from '../../hooks';
-import { profileStore, wsStore } from '../../store';
+import { profileStore } from '../../store';
 
 const WS_EVENT_TEST_NAME = 'userTest';
 
 export const TestPage: FC = observer(() => {
-  const { token } = profileStore;
-  const { ws, initConnection } = wsStore;
-  useWSConnection({ authToken: token, initConnection });
+  const { initWsConnection, listenWsMsg, sendWsMsg } = profileStore;
 
-  const { sendWsMsg, listenWsMsg } = useWSActions({ ws });
+  useEffect(() => {
+    initWsConnection();
+  }, [initWsConnection]);
 
   useEffect(() => {
     listenWsMsg(WS_EVENT_TEST_NAME, (message) => {

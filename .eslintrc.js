@@ -27,6 +27,7 @@ module.exports = {
     'spaced-comment': 'error',
     quotes: ['error', 'single'],
     'no-duplicate-imports': 'error',
+    'no-console': 'warn',
     'prettier/prettier': [
       'error',
       {

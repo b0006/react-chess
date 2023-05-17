@@ -1,10 +1,12 @@
 import { action, makeAutoObservable, observable } from 'mobx';
+import { io } from 'socket.io-client';
 
 import { HTTP } from '../../agent/axios';
 import { requests } from '../../agent';
-import { ProfileData, UserData } from './types';
+import { ProfileData, UserData, WS, WSMessage } from './types';
 
 const TOKEN_KEY = 'user-token-chess';
+const WS_URL = process.env.REACT_APP_API_URL || 'http://localhost:4000';
 
 const removeHeaderToken = () => {
   localStorage.removeItem(TOKEN_KEY);
@@ -24,15 +26,22 @@ export class ProfileStore {
   public token = '';
   public isInitLoading = true;
   public userData: UserData = initUser;
+  public ws: WS | null = null;
+
+  private listenListData: Record<string, boolean> = {};
 
   constructor() {
     makeAutoObservable(this, {
       token: observable,
       isInitLoading: observable,
       userData: observable,
+      ws: observable,
       setProfileData: action,
       signInAsGuest: action,
       logout: action,
+      initWsConnection: action,
+      listenWsMsg: action,
+      wsDisconnect: action,
     });
 
     const token = localStorage.getItem(TOKEN_KEY);
@@ -80,6 +89,39 @@ export class ProfileStore {
     this.token = '';
     removeHeaderToken();
     this.userData = initUser;
+  };
+
+  public initWsConnection = (url = WS_URL, transport = 'websocket') => {
+    const token = this.token;
+
+    if (this.ws?.active) {
+      return;
+    }
+
+    this.ws = io(url, {
+      withCredentials: true,
+      transports: [transport],
+      auth: { token },
+    });
+  };
+
+  public sendWsMsg = (event: string, message: WSMessage) => {
+    this.ws?.emit(event, JSON.stringify(message));
+  };
+
+  public listenWsMsg = (event: string, callback: (message: WSMessage) => void) => {
+    if (this.listenListData[event]) {
+      return;
+    }
+
+    this.ws?.on(event, callback);
+    this.listenListData[event] = true;
+  };
+
+  public wsDisconnect = () => {
+    this.ws?.disconnect();
+    this.ws = null;
+    this.listenListData = {};
   };
 }
 
