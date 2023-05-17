@@ -119,6 +119,10 @@ export class ProfileStore {
   };
 
   public wsDisconnect = () => {
+    if (!this.ws) {
+      return;
+    }
+
     this.ws?.disconnect();
     this.ws = null;
     this.listenListData = {};

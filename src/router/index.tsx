@@ -15,6 +15,40 @@ import { SignInPage } from '../pages/SignInPage';
 import { SignUpPage } from '../pages/SignUpPage';
 import { StartPage } from '../pages/Start';
 import { TestPage } from '../pages/Test';
+import { UrlData } from './types';
+
+export const URL_DATA: UrlData = {
+  init: {
+    path: '/',
+    children: {
+      signIn: {
+        path: '/sign-in',
+        children: {},
+      },
+      signUp: {
+        path: '/sign-up',
+        children: {},
+      },
+      offlineLobby: {
+        path: '/offline-lobby',
+        children: {},
+      },
+      offlineChessGame: {
+        path: '/offline-chess-game',
+        children: {},
+      },
+      test: {
+        path: '/test',
+        withWsConnection: true,
+        children: {},
+      },
+    },
+  },
+  notFound: {
+    path: '*',
+    children: {},
+  },
+};
 
 const PrivateRoute: FC = observer(() => {
   const { userData, isInitLoading } = profileStore;
@@ -29,16 +63,19 @@ const PrivateRoute: FC = observer(() => {
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path='/' element={<Layout />}>
+    <Route path={URL_DATA.init.path} element={<Layout />}>
       <Route index element={<StartPage />} />
-      <Route path='/test' element={<TestPage />} />
-      <Route path='/sign-in' element={<SignInPage />} />
-      <Route path='/sign-up' element={<SignUpPage />} />
+      <Route path={URL_DATA.init.children.test.path} element={<TestPage />} />
+      <Route path={URL_DATA.init.children.signIn.path} element={<SignInPage />} />
+      <Route path={URL_DATA.init.children.signUp.path} element={<SignUpPage />} />
       <Route element={<PrivateRoute />}>
-        <Route path='offline-lobby' element={<OfflineLobbyPage />} />
-        <Route path='offline-chess-game' element={<OfflineChessGamePage />} />
+        <Route path={URL_DATA.init.children.offlineLobby.path} element={<OfflineLobbyPage />} />
+        <Route
+          path={URL_DATA.init.children.offlineChessGame.path}
+          element={<OfflineChessGamePage />}
+        />
       </Route>
-      <Route path='*' element={<div>Page not found</div>} />
+      <Route path={URL_DATA.notFound.path} element={<div>Page not found</div>} />
     </Route>,
   ),
 );
